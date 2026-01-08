@@ -29,20 +29,8 @@
     .topbar{position:sticky;top:0;z-index:50;background:#fff;border-bottom:1px solid var(--line)}
     .topbarRow{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:10px 0;flex-wrap:wrap}
     .brand{display:flex;gap:10px;align-items:center}
-    .logo{
-      height:42px;
-      width:auto;
-      display:flex;
-      align-items:center;
-    }
-
-    .logo img{
-      height:100%;
-      width:auto;
-      max-width:none;
-      display:block;
-    }
-
+    .logo{height:42px;width:auto;display:flex;align-items:center;}
+    .logo img{height:100%;width:auto;max-width:none;display:block;}
     .brandTxt{line-height:1.1}
     .brandTxt b{display:block}
     .brandTxt span{font-size:12px;color:var(--muted);font-weight:800}
@@ -121,10 +109,7 @@
       white-space:nowrap;
     }
     .heroCta{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px;position:relative;z-index:1}
-    .ctaNote{
-      margin-top:10px;color:var(--muted);
-      font-weight:850;font-size:12px;position:relative;z-index:1
-    }
+    .ctaNote{margin-top:10px;color:var(--muted);font-weight:850;font-size:12px;position:relative;z-index:1}
 
     /* ===== Hero slider ===== */
     .heroMedia{
@@ -267,8 +252,6 @@
       border:1px solid var(--line);background:var(--soft);
       padding:8px 10px;border-radius:999px;font-size:12px;font-weight:950
     }
-    .detailsBtns{display:flex;gap:10px;flex-wrap:wrap;margin-top:6px}
-    .detailsBtns .btn{min-width:140px}
     .helpRow{display:flex;gap:10px;flex-wrap:wrap}
     .helpRow .btn{flex:1}
 
@@ -305,83 +288,9 @@
     }
     .thumb.active{opacity:1;border-color:var(--black)}
     .thumb img{width:100%;height:100%;object-fit:cover}
-    /* ✅ Order Modal spacing */
-    #orderModal .modalCard{
-      border-radius:24px;
-    }
 
     /* ✅ Order Modal spacing */
     #orderModal .modalCard{ border-radius:24px; }
-
-    /* ==========================================================
-       ✅ MODAL CTA UPGRADE (Your request)
-       - WhatsApp/Call row first
-       - BIG Buy Now under it (glow + pulse + shine)
-       - Keep Details & Size Chart still available
-       ========================================================== */
-    .modalActionsRow{
-      display:flex;
-      gap:10px;
-      flex-wrap:wrap;
-      margin-top:6px;
-    }
-    .modalActionsRow .btn{
-      flex:1;
-      min-width:150px;
-    }
-
-    .modalBuyBig{
-      width:100%;
-      margin-top:10px;
-      padding:16px 16px;
-      border-radius:18px;
-      font-size:16px;
-      font-weight:980;
-      border:none;
-      color:#fff;
-      background:linear-gradient(135deg, #0b0f1a, #1f2937);
-      box-shadow:0 18px 45px rgba(0,0,0,.28);
-      position:relative;
-      overflow:hidden;
-      animation:buyPulse 1.9s ease-in-out infinite;
-    }
-    .modalBuyBig:hover{
-      transform:translateY(-2px) scale(1.01);
-      box-shadow:0 26px 60px rgba(0,0,0,.36);
-    }
-    .modalBuyBig:active{transform:translateY(1px) scale(.99)}
-    @keyframes buyPulse{
-      0%,100%{ box-shadow:0 18px 45px rgba(0,0,0,.28), 0 0 0 rgba(255,255,255,0); }
-      50%{ box-shadow:0 22px 55px rgba(0,0,0,.36), 0 0 28px rgba(255,255,255,.12); }
-    }
-    /* Shine sweep */
-    .modalBuyBig::after{
-      content:"";
-      position:absolute;
-      top:-40%;
-      left:-40%;
-      width:40%;
-      height:180%;
-      background:linear-gradient(120deg, rgba(255,255,255,0), rgba(255,255,255,.30), rgba(255,255,255,0));
-      transform:rotate(18deg);
-      animation:buyShine 2.6s ease-in-out infinite;
-    }
-    @keyframes buyShine{
-      0%{ left:-50% }
-      60%{ left:120% }
-      100%{ left:120% }
-    }
-
-    .modalSecondaryRow{
-      display:flex;
-      gap:10px;
-      flex-wrap:wrap;
-      margin-top:10px;
-    }
-    .modalSecondaryRow .btn{
-      flex:1;
-      min-width:150px;
-    }
 
     /* ===== Checkout drawer ===== */
     .drawer{position:fixed;inset:0;display:none;z-index:70}
@@ -394,15 +303,11 @@
       padding:14px;display:flex;flex-direction:column;gap:10px;
       box-shadow:-20px 0 50px rgba(0,0,0,.20);
 
-      /* ✅ FIX: allow drawer to scroll on mobile */
-      overflow-y: auto;
-      -webkit-overflow-scrolling: touch;
-      overscroll-behavior: contain;
-
-      /* ✅ FIX: keep space so Place Order isn’t hidden behind mobile UI */
-      padding-bottom: calc(14px + env(safe-area-inset-bottom) + 90px);
+      overflow-y:auto;
+      -webkit-overflow-scrolling:touch;
+      overscroll-behavior:contain;
+      padding-bottom:calc(14px + env(safe-area-inset-bottom) + 90px);
     }
-
     .panel h3{margin:0;font-size:16px}
     .panel p{margin:0;color:var(--muted);font-weight:850;font-size:13px}
 
@@ -447,8 +352,8 @@
       display:none;
     }
     @media(max-width:920px){
-      .stickyBar{display:none} /* ✅ hide sticky Buy Now on mobile */
-      body{padding-bottom:0}  /* ✅ no extra space needed now */
+      .stickyBar{display:block}
+      body{padding-bottom:72px}
     }
     .stickyRow{display:flex;gap:10px;align-items:center;justify-content:space-between}
     .stickyInfo{display:flex;flex-direction:column;gap:2px}
@@ -530,21 +435,16 @@
     .heroCtaBig .btn{ min-width:220px; padding:16px 22px; font-size:16px; border-radius:20px; }
     .btnHeroMain{
       background:linear-gradient(135deg, #0b0f1a, #1f2937);
-      color:#fff;
-      border:none;
+      color:#fff;border:none;
       box-shadow:0 22px 50px rgba(0,0,0,.35);
-      position:relative;
-      overflow:hidden;
+      position:relative;overflow:hidden;
       animation:pulseHero 3.8s ease-in-out infinite;
     }
     @keyframes pulseHero{ 0%,100%{ transform:scale(1) } 50%{ transform:scale(1.05) } }
     .btnHeroMain::after{
       content:"";
-      position:absolute;
-      top:-40%;
-      left:-30%;
-      width:40%;
-      height:180%;
+      position:absolute;top:-40%;left:-30%;
+      width:40%;height:180%;
       background:linear-gradient(120deg, rgba(255,255,255,0), rgba(255,255,255,.35), rgba(255,255,255,0));
       transform:rotate(18deg);
       animation:heroShine 2.6s ease-in-out infinite;
@@ -558,7 +458,7 @@
       .heroCtaBig .btn{ width:100%; min-width:0; }
     }
 
-    /* ===== Size Chart Image (inside modal) ===== */
+    /* ===== Size Chart Image (inside modal/details) ===== */
     .sizePop{
       display:none;
       border:1px solid var(--line);
@@ -584,98 +484,121 @@
     }
     .sizeChartImg{ width:100%; height:auto; display:block; }
 
-    /* ===== Floating WhatsApp (DESKTOP ONLY) ===== */
-    .waFloat{
-      position:fixed;
-      right:18px;
-      bottom:18px;
-      width:56px;
-      height:56px;
-      border-radius:999px;
-      background:#25D366;
+    /* ==========================================================
+       ✅ BIG BUY NOW CTA (Details + Modal)
+       ========================================================== */
+    .modalActionsRow{
       display:flex;
-      align-items:center;
-      justify-content:center;
-      box-shadow:0 18px 40px rgba(0,0,0,.28);
-      z-index:9999;
-      transition:transform .15s ease, box-shadow .15s ease;
+      gap:10px;
+      flex-wrap:wrap;
+      margin-top:6px;
     }
-    .waFloat:hover{
-      transform:scale(1.08);
-      box-shadow:0 26px 55px rgba(0,0,0,.38);
+    .modalActionsRow .btn{ flex:1; min-width:150px; }
+
+    .modalBuyBig{
+      width:100%;
+      margin-top:10px;
+      padding:16px 16px;
+      border-radius:18px;
+      font-size:16px;
+      font-weight:980;
+      border:none;
+      color:#fff;
+      background:linear-gradient(135deg, #0b0f1a, #1f2937);
+      box-shadow:0 18px 45px rgba(0,0,0,.28);
+      position:relative;
+      overflow:hidden;
+      animation:buyPulse 1.9s ease-in-out infinite;
     }
-    .waFloat svg{width:30px;height:30px;display:block;fill:#fff}
-    @media(max-width:920px){ .waFloat{display:none} }
+    .modalBuyBig:hover{
+      transform:translateY(-2px) scale(1.01);
+      box-shadow:0 26px 60px rgba(0,0,0,.36);
+    }
+    .modalBuyBig:active{transform:translateY(1px) scale(.99)}
+    @keyframes buyPulse{
+      0%,100%{ box-shadow:0 18px 45px rgba(0,0,0,.28), 0 0 0 rgba(255,255,255,0); }
+      50%{ box-shadow:0 22px 55px rgba(0,0,0,.36), 0 0 28px rgba(255,255,255,.12); }
+    }
+    .modalBuyBig::after{
+      content:"";
+      position:absolute;
+      top:-40%;
+      left:-40%;
+      width:40%;
+      height:180%;
+      background:linear-gradient(120deg, rgba(255,255,255,0), rgba(255,255,255,.30), rgba(255,255,255,0));
+      transform:rotate(18deg);
+      animation:buyShine 2.6s ease-in-out infinite;
+    }
+    @keyframes buyShine{
+      0%{ left:-50% }
+      60%{ left:120% }
+      100%{ left:120% }
+    }
 
-    /* ✅ DETAILS CTA UPGRADE (in-page details panel) */
-.detailsBuyBig{
-  width:100%;
-  margin-top:10px;
-  padding:16px 16px;
-  border-radius:18px;
-  font-size:16px;
-  font-weight:980;
-  border:none;
-  color:#fff;
-  background:linear-gradient(135deg, #0b0f1a, #1f2937);
-  box-shadow:0 18px 45px rgba(0,0,0,.28);
-  position:relative;
-  overflow:hidden;
-  animation:detailsBuyPulse 1.9s ease-in-out infinite;
-}
+    .modalSecondaryRow{
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      margin-top:10px;
+    }
+    .modalSecondaryRow .btn{ flex:1; min-width:150px; }
 
-.detailsBuyBig:hover{
-  transform:translateY(-2px) scale(1.01);
-  box-shadow:0 26px 60px rgba(0,0,0,.36);
-}
-.detailsBuyBig:active{transform:translateY(1px) scale(.99)}
-
-@keyframes detailsBuyPulse{
-  0%,100%{ box-shadow:0 18px 45px rgba(0,0,0,.28), 0 0 0 rgba(255,255,255,0); }
-  50%{ box-shadow:0 22px 55px rgba(0,0,0,.36), 0 0 28px rgba(255,255,255,.12); }
-}
-
-/* shine sweep */
-.detailsBuyBig::after{
-  content:"";
-  position:absolute;
-  top:-40%;
-  left:-40%;
-  width:40%;
-  height:180%;
-  background:linear-gradient(120deg, rgba(255,255,255,0), rgba(255,255,255,.30), rgba(255,255,255,0));
-  transform:rotate(18deg);
-  animation:detailsBuyShine 2.6s ease-in-out infinite;
-}
-
-@keyframes detailsBuyShine{
-  0%{ left:-50% }
-  60%{ left:120% }
-  100%{ left:120% }
-}
-
-/* Optional: make secondary row nicer */
-.detailsSecondaryRow{
-  display:flex;
-  gap:10px;
-  flex-wrap:wrap;
-  margin-top:10px;
-}
-.detailsSecondaryRow .btn{
-  flex:1;
-  min-width:140px;
-}
+    .detailsBuyBig{
+      width:100%;
+      margin-top:10px;
+      padding:16px 16px;
+      border-radius:18px;
+      font-size:16px;
+      font-weight:980;
+      border:none;
+      color:#fff;
+      background:linear-gradient(135deg, #0b0f1a, #1f2937);
+      box-shadow:0 18px 45px rgba(0,0,0,.28);
+      position:relative;
+      overflow:hidden;
+      animation:detailsBuyPulse 1.9s ease-in-out infinite;
+    }
+    .detailsBuyBig:hover{
+      transform:translateY(-2px) scale(1.01);
+      box-shadow:0 26px 60px rgba(0,0,0,.36);
+    }
+    .detailsBuyBig:active{transform:translateY(1px) scale(.99)}
+    @keyframes detailsBuyPulse{
+      0%,100%{ box-shadow:0 18px 45px rgba(0,0,0,.28), 0 0 0 rgba(255,255,255,0); }
+      50%{ box-shadow:0 22px 55px rgba(0,0,0,.36), 0 0 28px rgba(255,255,255,.12); }
+    }
+    .detailsBuyBig::after{
+      content:"";
+      position:absolute;
+      top:-40%;
+      left:-40%;
+      width:40%;
+      height:180%;
+      background:linear-gradient(120deg, rgba(255,255,255,0), rgba(255,255,255,.30), rgba(255,255,255,0));
+      transform:rotate(18deg);
+      animation:detailsBuyShine 2.6s ease-in-out infinite;
+    }
+    @keyframes detailsBuyShine{
+      0%{ left:-50% }
+      60%{ left:120% }
+      100%{ left:120% }
+    }
+    .detailsSecondaryRow{
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      margin-top:10px;
+    }
+    .detailsSecondaryRow .btn{ flex:1; min-width:140px; }
 
   </style>
 </head>
 
 <body>
-  <div id="top"></div>
-
   <div class="topbar">
     <div class="wrap topbarRow">
-      <!-- ✅ Clickable logo + brand (go to top/home) -->
-      <a class="brand" href="#top" aria-label="GameOn Garb Home">
+      <div class="brand">
         <div class="logo">
           <img src="assets/logo/gameongarb-logo.png" alt="GameOnGarb Logo">
         </div>
@@ -683,7 +606,7 @@
           <b>GameOn Garb</b>
           <span>Winter Sale • Cash on Delivery</span>
         </div>
-      </a>
+      </div>
 
       <div class="topActions">
         <div class="chipMini">📞 Confirmation call</div>
@@ -697,20 +620,18 @@
     <div class="wrap heroGrid">
       <div class="heroCard">
         <h1 class="heroTitle">Winter Collection Deals — Limited Stock 🔥</h1>
-        <p class="heroSub">
-          Premium Tracksuits • Sweatshirts • Jackets.
-        </p>
+        <p class="heroSub">Premium Tracksuits • Sweatshirts • Jackets.</p>
 
         <div class="trustRow">
           <div class="trustPill">✅ Cash on Delivery</div>
           <div class="trustPill">🚚 Fast delivery</div>
           <div class="trustPill">🧵 Premium quality</div>
         </div>
+
         <div class="heroCta heroCtaBig">
           <a class="btn btnPrimary btnHeroMain" href="#products">Shop & Order</a>
           <button class="btn btnSoft btnHeroAlt" id="openBest">Best Picks</button>
         </div>
-
       </div>
 
       <div>
@@ -741,6 +662,7 @@
     </div>
   </section>
 
+  <!-- ===================== DETAILS ===================== -->
   <section class="section" id="detailsSection">
     <div class="wrap">
       <div class="head">
@@ -777,10 +699,10 @@
               <a class="btn btnBlue" id="dCall" href="#">Call</a>
             </div>
 
-            <!-- ✅ BIG Buy Now (glow + pulse) -->
+            <!-- ✅ BIG Buy Now SECOND -->
             <button class="btn detailsBuyBig" id="dBuy">Buy Now</button>
 
-            <!-- ✅ Secondary buttons -->
+            <!-- ✅ Secondary row -->
             <div class="detailsSecondaryRow">
               <button class="btn btnSoft" id="dPreview">More Photos</button>
               <button class="btn btnSoft" id="dSizeChart">Size Chart</button>
@@ -793,14 +715,12 @@
                 <b id="dSizePopTitle">Size Chart</b>
                 <button class="close" id="dSizeClose">✕</button>
               </div>
-
               <div class="sizePopBody" id="dSizePopBody"></div>
             </div>
 
             <div style="color:var(--muted);font-weight:850;font-size:12px">
               Size tip: If you like relaxed fit, choose one size up.
             </div>
-
           </div>
         </div>
       </div>
@@ -808,18 +728,18 @@
     </div>
   </section>
 
+  <!-- ===================== PRODUCTS ===================== -->
   <section id="products" class="section">
     <div class="wrap">
       <div class="head">
         <h2>Products</h2>
         <span id="count">Loading…</span>
       </div>
-
       <div class="grid" id="grid"></div>
     </div>
   </section>
 
-  <!-- ✅ Customer Reviews (Photo Carousel) -->
+  <!-- ===================== REVIEWS ===================== -->
   <section class="section" id="reviews">
     <div class="wrap">
       <div class="reviews">
@@ -846,7 +766,7 @@
     <div class="wrap">© GameOn Garb • Campaign Landing Page • COD • Bangladesh</div>
   </footer>
 
-  <!-- Preview modal -->
+  <!-- ===================== PREVIEW MODAL ===================== -->
   <div class="modal" id="modal">
     <div class="modalCard">
       <div class="modalMedia">
@@ -875,16 +795,16 @@
 
         <div class="thumbs" id="thumbs"></div>
 
-        <!-- ✅ MOVED: WhatsApp + Call FIRST -->
+        <!-- ✅ WhatsApp + Call FIRST -->
         <div class="modalActionsRow">
           <a class="btn btnGreen" id="mWhatsApp" target="_blank" rel="noopener">WhatsApp</a>
-          <a class="btn btnBlue" id="mCall" href="#">Call</a>
+          <a class="btn btnBlue" id="mCall" href="#" rel="noopener">Call</a>
         </div>
 
-        <!-- ✅ BIG Buy Now SECOND (glow + pulse) -->
+        <!-- ✅ BIG Buy Now SECOND -->
         <button class="btn modalBuyBig" id="mBuy">Buy Now</button>
 
-        <!-- ✅ Keep Details + Size Chart (still available) -->
+        <!-- ✅ Secondary row -->
         <div class="modalSecondaryRow">
           <button class="btn btnSoft" id="mDetails">Details</button>
           <button class="btn btnSoft" id="mSizeChart">Size Chart</button>
@@ -896,15 +816,13 @@
             <b id="sizePopTitle">Size Chart</b>
             <button class="close" id="sizeClose">✕</button>
           </div>
-
           <div class="sizePopBody" id="sizePopBody"></div>
         </div>
-
       </div>
     </div>
   </div>
 
-  <!-- Checkout drawer -->
+  <!-- ===================== CHECKOUT DRAWER ===================== -->
   <div class="drawer" id="drawer">
     <div class="drawerBg" id="dBg"></div>
     <div class="panel">
@@ -916,7 +834,6 @@
         <button class="close" id="dClose">✕</button>
       </div>
 
-      <!-- Checkout Product Preview + Switch -->
       <div class="ckTopBox">
         <div class="ckImg"><img id="ckImg" alt="Selected product"></div>
         <div class="ckMeta">
@@ -1016,16 +933,6 @@
     </div>
   </div>
 
-<<<<<<< HEAD
-=======
-  <!-- ✅ Floating WhatsApp (desktop only) -->
-  <a class="waFloat" id="waFloat" target="_blank" rel="noopener" aria-label="Chat on WhatsApp">
-    <svg viewBox="0 0 32 32" aria-hidden="true">
-      <path d="M19.11 17.16c-.27-.14-1.6-.79-1.85-.88-.25-.09-.43-.14-.61.14-.18.27-.7.88-.86 1.06-.16.18-.32.2-.59.07-.27-.14-1.14-.42-2.17-1.34-.8-.72-1.34-1.61-1.5-1.88-.16-.27-.02-.41.12-.55.12-.12.27-.32.41-.48.14-.16.18-.27.27-.45.09-.18.05-.34-.02-.48-.07-.14-.61-1.48-.84-2.03-.22-.53-.45-.46-.61-.47l-.52-.01c-.18 0-.48.07-.73.34-.25.27-.96.94-.96 2.29 0 1.35.98 2.66 1.12 2.84.14.18 1.93 2.95 4.68 4.13.66.28 1.18.45 1.58.57.66.21 1.26.18 1.73.11.53-.08 1.6-.65 1.83-1.27.23-.62.23-1.15.16-1.27-.07-.12-.25-.2-.52-.34zM16.02 27.5h-.01c-1.95 0-3.86-.53-5.52-1.54l-.4-.24-4.11 1.08 1.1-4.01-.26-.41c-1.09-1.72-1.66-3.72-1.66-5.78 0-5.99 4.88-10.86 10.88-10.86 2.9 0 5.62 1.13 7.68 3.18 2.05 2.05 3.18 4.78 3.18 7.68 0 5.99-4.88 10.9-10.88 10.9zm9.24-20.11A12.85 12.85 0 0 0 16.02 3.5C8.94 3.5 3.18 9.26 3.18 16.34c0 2.26.59 4.46 1.71 6.4L3.07 29.5l6.94-1.82a12.8 12.8 0 0 0 6.01 1.53h.01c7.08 0 12.84-5.79 12.84-12.87 0-3.43-1.34-6.66-3.61-8.95z"/>
-    </svg>
-  </a>
-
->>>>>>> fd6d1df (UI improvements: big Buy Now button, details popup CTA, WhatsApp UX)
   <script>
     // ==========================================================
     // CONFIG
@@ -1034,22 +941,26 @@
     const SHIP_OUTSIDE = 130;
     const fmtBDT = (n) => "৳" + Number(n).toLocaleString("en-US");
 
-    // Put YOUR support phone number here (Bangladesh):
-    const SUPPORT_PHONE = "01711992409"; // change this
-    // WhatsApp needs country code, BD = 880 (example: 8801XXXXXXXXX)
-    const WHATSAPP_NUMBER = "8801711992409"; // change this
+    const SUPPORT_PHONE = "01711992409";       // change this
+    const WHATSAPP_NUMBER = "8801711992409";   // change this
+
+    function waLink(message){
+      const text = encodeURIComponent(message);
+      return `https://wa.me/${WHATSAPP_NUMBER}?text=${text}`;
+    }
+    function callLink(){ return `tel:${SUPPORT_PHONE}`; }
 
     // ==========================================================
-    // SIZE CHART (per category) ✅ add this
+    // SIZE CHART (per category)
     // ==========================================================
     const SIZE_CHARTS = {
       Tracksuits: "/assets/sizecharts/tracksuits.webp",
       Sweatshirts: "/assets/sizecharts/sweatshirts.webp",
       Jackets: "/assets/sizecharts/jackets.webp",
     };
+
     function renderSizeChart(category, titleEl, bodyEl){
       const imgSrc = SIZE_CHARTS[category];
-
       titleEl.textContent = category + " Size Chart";
 
       if(!imgSrc){
@@ -1065,18 +976,12 @@
         <img class="sizeChartImg" src="${imgSrc}" alt="${category} size chart"
              loading="lazy"
              onerror="this.outerHTML='<div style=padding:10px;font-weight:850;color:var(--muted)>❌ Size chart image not found: ${imgSrc}</div>';">
-
       `;
     }
 
-    function waLink(message){
-      const text = encodeURIComponent(message);
-      return `https://wa.me/${WHATSAPP_NUMBER}?text=${text}`;
-    }
-    function callLink(){
-      return `tel:${SUPPORT_PHONE}`;
-    }
-    // ✅ Order confirmation popup helpers
+    // ==========================================================
+    // Order confirmation popup helpers
+    // ==========================================================
     const orderModal = document.getElementById("orderModal");
     const orderModalTitle = document.getElementById("orderModalTitle");
     const orderModalBody = document.getElementById("orderModalBody");
@@ -1090,52 +995,13 @@
       orderModal.classList.add("open");
       document.body.style.overflow = "hidden";
     }
-
     function closeOrderPopup(){
       orderModal.classList.remove("open");
       orderModal.style.display = "none";
       document.body.style.overflow = "";
     }
-
     if(orderModalClose) orderModalClose.onclick = closeOrderPopup;
     if(orderModalOk) orderModalOk.onclick = closeOrderPopup;
-
-    if(orderModal){
-      orderModal.addEventListener("click", (e)=>{
-        if(e.target === orderModal) closeOrderPopup();
-      });
-    }
-
-    // ✅ Floating WhatsApp link (desktop only, always available)
-    const waFloat = document.getElementById("waFloat");
-    if(waFloat){
-      waFloat.href = waLink("Hi! I need help with GameOn Garb order.");
-    }
-
-    // ✅ Order confirmation popup helpers
-    const orderModal = document.getElementById("orderModal");
-    const orderModalTitle = document.getElementById("orderModalTitle");
-    const orderModalBody = document.getElementById("orderModalBody");
-    const orderModalClose = document.getElementById("orderModalClose");
-    const orderModalOk = document.getElementById("orderModalOk");
-
-    function openOrderPopup(title, html){
-      orderModalTitle.textContent = title || "Order Status";
-      orderModalBody.innerHTML = html || "";
-      orderModal.style.display = "grid";
-      orderModal.classList.add("open");
-      document.body.style.overflow = "hidden";
-    }
-
-    function closeOrderPopup(){
-      orderModal.classList.remove("open");
-      orderModal.style.display = "none";
-      document.body.style.overflow = "";
-    }
-
-    if(orderModalClose) orderModalClose.onclick = closeOrderPopup;
-    if(orderModalOk) orderModalOk.onclick = closeOrderPopup;
-
     if(orderModal){
       orderModal.addEventListener("click", (e)=>{
         if(e.target === orderModal) closeOrderPopup();
@@ -1160,9 +1026,9 @@
       { id:"sw-190", category:"Sweatshirts", name:"Brazil Premium Sweatshirt", now:950, was:1050, off:10, stock: 11, sizes:["L","XL","XXL"], link:"https://www.gameongarb.com/product/brazil-premium-sweatshirt-190", imageDir:"/assets/products/sw-190" },
 
       // Jackets
-      { id:"jk-131", category:"Jackets", name:"Double Layer Imported Jacket for Men (Ash)", now:2000, was:2200, off:9, stock: 3, sizes:["XL","2XL","3XL","4XL","5XL"], link:"https://www.gameongarb.com/subcategory/jacket", imageDir:"/assets/products/jk-131" },
+      { id:"jk-131", category:"Jackets", name:"Double Layer Imported Jacket for Men (Olive)", now:2000, was:2200, off:9, stock: 3, sizes:["XL","2XL","3XL","4XL","5XL"], link:"https://www.gameongarb.com/subcategory/jacket", imageDir:"/assets/products/jk-131" },
       { id:"jk-132", category:"Jackets", name:"Double Layer Imported Jacket for Men (Red)", now:2000, was:2200, off:9, stock: 3, sizes:["XL","2XL","3XL","4XL","5XL"], link:"https://www.gameongarb.com/subcategory/jacket", imageDir:"/assets/products/jk-132" },
-      { id:"jk-133", category:"Jackets", name:"Double Layer Imported Jacket for Men (New)", now:2000, was:2200, off:9, stock: 3, sizes:["XL","2XL","3XL","4XL","5XL"], link:"https://www.gameongarb.com/subcategory/jacket", imageDir:"/assets/products/jk-133" }
+      { id:"jk-133", category:"Jackets", name:"Double Layer Imported Jacket for Men (Ash)", now:2000, was:2200, off:9, stock: 3, sizes:["XL","2XL","3XL","4XL","5XL"], link:"https://www.gameongarb.com/subcategory/jacket", imageDir:"/assets/products/jk-133" }
     ];
 
     // ==========================================================
@@ -1180,7 +1046,6 @@
     }
 
     function encodeFileName(fileName){
-      // Encode only filename segment (supports spaces, commas, parentheses, keeps ..webp valid)
       return encodeURIComponent(fileName);
     }
 
@@ -1201,7 +1066,6 @@
           ? files.map(fn => `${p.imageDir}/${encodeFileName(fn)}`)
           : [];
 
-        // fallback so UI doesn't crash
         if(!images.length){
           images.push(`${p.imageDir}/1.webp`, `${p.imageDir}/1.jpg`, `${p.imageDir}/1.jpeg`, `${p.imageDir}/1.png`);
         }
@@ -1215,7 +1079,6 @@
     // ==========================================================
     let products = [];
     let activeCat = "all";
-    // ✅ NEW: Category priority (Jackets first, then Tracksuits, then Sweatshirts)
     const CATEGORY_PRIORITY = { "Jackets": 1, "Tracksuits": 2, "Sweatshirts": 3 };
 
     // ==========================================================
@@ -1281,15 +1144,12 @@
         .sort((a,b)=>{
           const pa = CATEGORY_PRIORITY[a.category] ?? 999;
           const pb = CATEGORY_PRIORITY[b.category] ?? 999;
-          if(pa !== pb) return pa - pb;          // category order
-          return a.name.localeCompare(b.name);   // inside category A→Z
+          if(pa !== pb) return pa - pb;
+          return a.name.localeCompare(b.name);
         });
-
     }
 
-    function safeFirstImg(p){
-      return (p.images && p.images[0]) ? p.images[0] : "";
-    }
+    function safeFirstImg(p){ return (p.images && p.images[0]) ? p.images[0] : ""; }
 
     function stockText(p){
       const n = Number(p.stock || 0);
@@ -1355,7 +1215,7 @@
 
     document.getElementById("clear").addEventListener("click", ()=>{ q.value=""; render(); q.focus(); });
     q.addEventListener("input", render);
-    document.getElementById("openBest").addEventListener("click", ()=> {
+    document.getElementById("openBest").addEventListener("click", ()=>{
       document.getElementById("products").scrollIntoView({behavior:"smooth"});
     });
 
@@ -1400,29 +1260,20 @@
       dWhatsApp.href = waLink(`Hi! I need help with: ${detailsProduct.name}`);
       dCall.href = callLink();
 
-      // update floating whatsapp to match selected product (desktop)
-      if(waFloat){
-        waFloat.href = waLink(`Hi! I need help with: ${detailsProduct.name}`);
-      }
-
       if(scroll){
         document.getElementById("detailsSection").scrollIntoView({behavior:"smooth", block:"start"});
       }
 
       setSticky(detailsProduct);
 
-      // ✅ DETAILS size chart popup
       dSizePop.classList.remove("open");
-
       dSizeChart.onclick = () => {
         const willOpen = !dSizePop.classList.contains("open");
         dSizePop.classList.toggle("open", willOpen);
-
         if(willOpen){
           renderSizeChart(detailsProduct.category, dSizePopTitle, dSizePopBody);
         }
       };
-
       dSizeClose.onclick = () => dSizePop.classList.remove("open");
     }
 
@@ -1431,9 +1282,6 @@
       dSizePop.classList.remove("open");
       detailsProduct = null;
       setSticky(products[0] || null);
-      if(waFloat){
-        waFloat.href = waLink("Hi! I need help with GameOn Garb order.");
-      }
     });
 
     // ==========================================================
@@ -1483,11 +1331,6 @@
       mWhatsApp.href = waLink(`Hi! I want to know about: ${current.name}`);
       mCall.href = callLink();
 
-      // update floating whatsapp to match modal product (desktop)
-      if(waFloat){
-        waFloat.href = waLink(`Hi! I need help with: ${current.name}`);
-      }
-
       thumbs.innerHTML = (current.images || []).map((src,i)=>`
         <div class="thumb ${i===0?'active':''}" data-i="${i}">
           <img src="${src}" alt="thumb" loading="lazy">
@@ -1502,33 +1345,11 @@
       mBuy.onclick = ()=>{ closeModal(); openCheckout(current.id); };
       mDetails.onclick = ()=>{ closeModal(); showDetails(current.id, true); };
 
-      // reset size pop each time modal opens
       sizePop.classList.remove("open");
-
-      // Size chart button
       mSizeChart.onclick = () => {
-        const imgSrc = SIZE_CHARTS[current.category];
-
-        sizePopTitle.textContent = current.category + " Size Chart";
-
-        if(!imgSrc){
-          sizePopBody.innerHTML = `
-            <div style="padding:10px;font-weight:850;color:var(--muted)">
-              Size chart not found for this category.
-            </div>
-          `;
-        } else {
-          sizePopBody.innerHTML = `
-            <img class="sizeChartImg" src="${imgSrc}" alt="${current.category} size chart"
-                 loading="lazy"
-                 onerror="this.style.opacity=.25; this.title='Size chart image missing';">
-          `;
-        }
-
+        renderSizeChart(current.category, sizePopTitle, sizePopBody);
         sizePop.classList.toggle("open");
       };
-
-      // close button
       sizeClose.onclick = () => sizePop.classList.remove("open");
 
       setModalImg(0);
@@ -1554,7 +1375,7 @@
     });
 
     // ==========================================================
-    // CHECKOUT DRAWER (image preview + dropdown + size auto-fill)
+    // CHECKOUT DRAWER
     // ==========================================================
     const drawer = document.getElementById("drawer");
     const cMsg = document.getElementById("cMsg");
@@ -1586,7 +1407,6 @@
       const sizes = (p && Array.isArray(p.sizes) && p.sizes.length) ? p.sizes : ["M","L","XL","XXL","3XL","4XL","5XL"];
       const prev = cSize.value || "";
       cSize.innerHTML = `<option value="">Select</option>` + sizes.map(s=>`<option>${s}</option>`).join("");
-      // keep previous if still valid
       if(prev && sizes.includes(prev)) cSize.value = prev;
     }
 
@@ -1599,15 +1419,9 @@
 
       fillSizesForProduct(selected);
 
-      // support links
       const pname = selected ? selected.name : "a product";
       cWhatsApp.href = waLink(`Hi! I need help with order: ${pname}`);
       cCall.href = callLink();
-
-      // update floating whatsapp to match drawer product (desktop)
-      if(waFloat && selected){
-        waFloat.href = waLink(`Hi! I need help with order: ${selected.name}`);
-      }
     }
 
     function refreshSummary(){
@@ -1637,8 +1451,6 @@
 
       drawer.classList.add("open");
       document.body.style.overflow="hidden";
-
-      // ✅ Optional: always open drawer at top
       document.querySelector(".panel").scrollTop = 0;
 
       setSticky(selected);
@@ -1647,9 +1459,6 @@
     function closeCheckout(){
       drawer.classList.remove("open");
       document.body.style.overflow="";
-      if(waFloat){
-        waFloat.href = waLink("Hi! I need help with GameOn Garb order.");
-      }
     }
 
     document.getElementById("openQuickBuy").addEventListener("click", ()=>{
@@ -1772,7 +1581,7 @@
       heroUsingA = true;
       hIdx = 0;
 
-      // Default support links (if no selected)
+      // Default support links
       document.getElementById("dCall").href = callLink();
       document.getElementById("mCall").href = callLink();
       document.getElementById("cCall").href = callLink();
@@ -1783,7 +1592,7 @@
     })();
 
     // ==========================================================
-    // REVIEWS (Best: auto-slide + fade)
+    // REVIEWS
     // ==========================================================
     const reviewImages = [
       "/assets/reviews/8.jpg",
@@ -1940,87 +1749,9 @@
       else startReviewAuto();
     });
 
-<<<<<<< HEAD
-function setReview(i, userAction){
-  const m = maxIndex();
-  revIndex = Math.min(Math.max(0, i), m);
-  applyReviewTransform();
-  if(userAction) restartReviewAuto();
-}
-
-function nextReview(){
-  const m = maxIndex();
-  if(revIndex >= m) revIndex = 0;  // loop
-  else revIndex++;
-  applyReviewTransform();
-}
-
-function prevReviewFn(){
-  const m = maxIndex();
-  if(revIndex <= 0) revIndex = m;  // loop
-  else revIndex--;
-  applyReviewTransform();
-}
-
-function startReviewAuto(){
-  stopReviewAuto();
-  revTimer = setInterval(nextReview, 1500); // 🔥 short time (change)
-}
-function stopReviewAuto(){
-  if(revTimer) clearInterval(revTimer);
-  revTimer = null;
-}
-function restartReviewAuto(){
-  stopReviewAuto();
-  startReviewAuto();
-}
-
-if(revPrev) revPrev.addEventListener("click", ()=>{ prevReviewFn(); restartReviewAuto(); });
-if(revNext) revNext.addEventListener("click", ()=>{ nextReview(); restartReviewAuto(); });
-
-// Swipe (mobile)
-(function bindSwipe(){
-  if(!revTrack) return;
-  let x0 = null;
-
-  revTrack.addEventListener("touchstart",(e)=>{
-    x0 = e.touches[0].clientX;
-  }, {passive:true});
-
-  revTrack.addEventListener("touchend",(e)=>{
-    if(x0 === null) return;
-    const x1 = e.changedTouches[0].clientX;
-    const dx = x1 - x0;
-    x0 = null;
-
-    if(Math.abs(dx) < 35) return;
-    if(dx < 0) { nextReview(); restartReviewAuto(); }
-    else { prevReviewFn(); restartReviewAuto(); }
-  }, {passive:true});
-})();
-
-// rebuild on resize (to recalc 3/2/1 layout)
-window.addEventListener("resize", ()=>{
-  const oldMax = maxIndex();
-  buildReviews();
-  // keep index safe
-  revIndex = Math.min(revIndex, oldMax);
-  applyReviewTransform();
-});
-
-document.addEventListener("visibilitychange", ()=>{
-  if(document.hidden) stopReviewAuto();
-  else startReviewAuto();
-});
-
-// init
-buildReviews();
-startReviewAuto();
-
-=======
     buildReviews();
     startReviewAuto();
->>>>>>> fd6d1df (UI improvements: big Buy Now button, details popup CTA, WhatsApp UX)
+
   </script>
 </body>
 </html>
