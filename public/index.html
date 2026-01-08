@@ -1,0 +1,2026 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>GameOn Garb | Winter Sale</title>
+
+  <style>
+    :root{
+      --bg:#ffffff;
+      --card:#ffffff;
+      --muted:#6b7280;
+      --text:#0b1220;
+      --line:#e5e7eb;
+      --soft:#f7f8fb;
+      --black:#0b0f1a;
+      --radius:18px;
+      --shadow: 0 16px 32px rgba(0,0,0,.08);
+      --shadow2: 0 10px 22px rgba(0,0,0,.10);
+    }
+    *{box-sizing:border-box}
+    body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial;background:var(--bg);color:var(--text)}
+    a{color:inherit;text-decoration:none}
+    img{display:block;max-width:100%}
+    button,input,select{font:inherit}
+    .wrap{width:min(1160px,92vw);margin:0 auto}
+
+    /* ===== Topbar ===== */
+    .topbar{position:sticky;top:0;z-index:50;background:#fff;border-bottom:1px solid var(--line)}
+    .topbarRow{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:10px 0;flex-wrap:wrap}
+    .brand{display:flex;gap:10px;align-items:center}
+    .logo{
+      height:42px;
+      width:auto;
+      display:flex;
+      align-items:center;
+    }
+
+    .logo img{
+      height:100%;
+      width:auto;
+      max-width:none;
+      display:block;
+    }
+
+    .brandTxt{line-height:1.1}
+    .brandTxt b{display:block}
+    .brandTxt span{font-size:12px;color:var(--muted);font-weight:800}
+    .topActions{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+    .chipMini{
+      display:inline-flex;align-items:center;gap:6px;
+      border:1px solid var(--line);background:var(--soft);
+      padding:8px 10px;border-radius:999px;font-size:12px;font-weight:950;color:#111;
+      white-space:nowrap;
+    }
+
+    /* ===== Buttons ===== */
+    .btn{
+      display:inline-flex;align-items:center;justify-content:center;gap:8px;
+      padding:11px 14px;border-radius:14px;
+      border:1px solid var(--black);background:#fff;color:var(--black);
+      font-weight:950;cursor:pointer;
+      transition:transform .12s ease, box-shadow .12s ease, background .12s ease;
+      user-select:none;
+    }
+    .btn:active{transform:translateY(1px)}
+    .btnPrimary{background:var(--black);color:#fff}
+    .btnSoft{border:1px solid var(--line);background:var(--soft);color:var(--text)}
+    .btnSmall{padding:9px 12px;border-radius:12px;font-size:13px}
+    .btnWide{width:100%}
+    .btnGreen{border:1px solid #16a34a;background:#16a34a;color:#fff}
+    .btnBlue{border:1px solid #2563eb;background:#2563eb;color:#fff}
+
+    /* ===== Hero ===== */
+    .hero{padding:14px 0 12px}
+    .heroGrid{display:grid;grid-template-columns:1.15fr .85fr;gap:16px;align-items:stretch}
+    @media(max-width:920px){.heroGrid{grid-template-columns:1fr}}
+
+    .heroCard{
+      border:1px solid var(--line);
+      background:linear-gradient(180deg, #ffffff 0%, #f7f8fb 100%);
+      border-radius:22px;
+      padding:14px;
+      box-shadow:var(--shadow);
+      position:relative;
+      overflow:hidden;
+    }
+    .heroCard:before{
+      content:"";
+      position:absolute;inset:-60px -80px auto auto;
+      width:260px;height:260px;border-radius:999px;
+      background:radial-gradient(circle at 30% 30%, rgba(0,0,0,.12), rgba(0,0,0,0));
+      transform:rotate(15deg);
+    }
+    .heroTitle{
+      margin:0 0 10px;
+      font-size:clamp(22px,3.2vw,38px);
+      letter-spacing:-.02em;
+      line-height:1.08;
+      position:relative;
+      z-index:1;
+    }
+    .heroSub{
+      margin:0;
+      color:var(--muted);
+      font-weight:850;
+      max-width:62ch;
+      position:relative;
+      z-index:1;
+    }
+    .trustRow{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px;position:relative;z-index:1}
+    .trustPill{
+      display:inline-flex;align-items:center;gap:8px;
+      border:1px solid var(--line);
+      background:#fff;
+      padding:9px 12px;
+      border-radius:999px;
+      font-size:12px;
+      font-weight:950;
+      box-shadow:0 8px 16px rgba(0,0,0,.05);
+      white-space:nowrap;
+    }
+    .heroCta{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px;position:relative;z-index:1}
+    .ctaNote{
+      margin-top:10px;color:var(--muted);
+      font-weight:850;font-size:12px;position:relative;z-index:1
+    }
+
+    /* ===== Hero slider ===== */
+    .heroMedia{
+      border:1px solid var(--line);
+      background:var(--soft);
+      border-radius:22px;
+      overflow:hidden;
+      position:relative;
+      aspect-ratio:1/1;
+      width:100%;
+      max-width:520px;
+      margin-left:auto;
+      box-shadow:var(--shadow);
+    }
+    @media(max-width:920px){ .heroMedia{margin-left:0;max-width:100%} }
+    .heroStage{position:absolute;inset:0}
+    .heroStage img{
+      position:absolute;inset:0;
+      width:100%;height:100%;
+      object-fit:cover;
+      opacity:0;
+      transition:opacity .55s ease;
+      will-change:opacity;
+    }
+    .heroStage img.active{opacity:1}
+    .nav{
+      position:absolute;top:50%;transform:translateY(-50%);
+      width:44px;height:44px;border-radius:999px;border:1px solid var(--line);
+      background:rgba(255,255,255,.92);
+      cursor:pointer;font-weight:950;font-size:22px;
+      display:grid;place-items:center;
+      box-shadow:var(--shadow2);
+    }
+    .nav.prev{left:12px}
+    .nav.next{right:12px}
+    .hint{margin-top:10px;color:var(--muted);font-size:12px;font-weight:850;text-align:center}
+
+    /* ===== Controls ===== */
+    .controls{
+      margin-top:12px;border:1px solid var(--line);
+      border-radius:22px;background:var(--soft);
+      padding:12px;display:flex;gap:10px;align-items:center;
+      justify-content:space-between;flex-wrap:wrap;
+    }
+    .tabs{display:flex;gap:8px;flex-wrap:wrap}
+    .tab{
+      padding:9px 12px;border-radius:999px;border:1px solid var(--line);
+      background:#fff;font-weight:950;font-size:13px;cursor:pointer;
+      transition:background .12s ease, transform .12s ease;
+    }
+    .tab:active{transform:translateY(1px)}
+    .tab.active{background:var(--black);border-color:var(--black);color:#fff}
+    .search{display:flex;gap:8px;align-items:center;min-width:260px}
+    .search input{
+      width:min(360px,70vw);
+      padding:10px 12px;border-radius:14px;border:1px solid var(--line);
+      background:#fff;font-weight:850;outline:none
+    }
+
+    /* ===== Product grid ===== */
+    .section{padding:14px 0 18px}
+    .head{display:flex;align-items:flex-end;justify-content:space-between;gap:12px;flex-wrap:wrap}
+    .head h2{margin:0;font-size:20px;letter-spacing:-.01em}
+    .head span{color:var(--muted);font-size:13px;font-weight:850}
+
+    .grid{margin-top:14px;display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+    @media(max-width:1100px){.grid{grid-template-columns:repeat(3,1fr)}}
+    @media(max-width:760px){.grid{grid-template-columns:repeat(2,1fr)}}
+    @media(max-width:460px){.grid{grid-template-columns:1fr}}
+
+    .card{
+      border:1px solid var(--line);border-radius:22px;background:var(--card);
+      overflow:hidden;box-shadow:var(--shadow);
+      display:flex;flex-direction:column
+    }
+    .imgBox{aspect-ratio:1/1;background:var(--soft);cursor:pointer;position:relative;overflow:hidden}
+    .imgBox img{width:100%;height:100%;object-fit:cover;transition:transform .2s ease}
+    .imgBox:hover img{transform:scale(1.05)}
+    .tag{
+      position:absolute;left:10px;top:10px;
+      background:rgba(11,15,26,.86);color:#fff;border-radius:999px;
+      padding:7px 10px;font-size:12px;font-weight:950
+    }
+    .stockBadge{
+      position:absolute;right:10px;top:10px;
+      background:rgba(255,255,255,.92);
+      border:1px solid var(--line);
+      border-radius:999px;
+      padding:7px 10px;
+      font-size:12px;
+      font-weight:980;
+      box-shadow:0 10px 18px rgba(0,0,0,.10);
+    }
+    .body{padding:12px 12px 14px;display:flex;flex-direction:column;gap:8px;flex:1}
+    .title{font-weight:950;line-height:1.25}
+    .meta{font-size:12.5px;color:var(--muted);font-weight:850}
+    .price{display:flex;gap:10px;align-items:baseline;flex-wrap:wrap}
+    .now{font-size:18px;font-weight:980}
+    .was{font-size:13px;color:#9ca3af;font-weight:850;text-decoration:line-through}
+    .actions{margin-top:auto;display:flex;gap:10px}
+    .actions .btn{flex:1}
+
+    /* ===== In-page details ===== */
+    .detailsWrap{
+      border:1px solid var(--line);
+      background:linear-gradient(180deg, #ffffff 0%, #f7f8fb 100%);
+      border-radius:22px;
+      padding:14px;
+      display:none;
+      box-shadow:var(--shadow);
+    }
+    .detailsWrap.show{display:block}
+    .detailsGrid{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap:14px;
+      align-items:start;
+    }
+    @media(max-width:920px){.detailsGrid{grid-template-columns:1fr}}
+    .detailsMedia{
+      border:1px solid var(--line);
+      border-radius:22px;
+      background:#fff;
+      overflow:hidden;
+      aspect-ratio:1/1;
+      position:relative;
+    }
+    .detailsMedia img{width:100%;height:100%;object-fit:cover}
+    .detailsBox{
+      background:#fff;border:1px solid var(--line);border-radius:22px;padding:14px;
+      display:flex;flex-direction:column;gap:10px
+    }
+    .detailsBox h3{margin:0;font-size:18px;letter-spacing:-.01em}
+    .kvs{display:grid;gap:8px}
+    .kvRow{display:flex;justify-content:space-between;gap:12px;align-items:baseline}
+    .kvRow small{color:var(--muted);font-weight:850}
+    .kvRow b{font-weight:980}
+    .chips{display:flex;gap:8px;flex-wrap:wrap}
+    .chip{
+      border:1px solid var(--line);background:var(--soft);
+      padding:8px 10px;border-radius:999px;font-size:12px;font-weight:950
+    }
+    .detailsBtns{display:flex;gap:10px;flex-wrap:wrap;margin-top:6px}
+    .detailsBtns .btn{min-width:140px}
+    .helpRow{display:flex;gap:10px;flex-wrap:wrap}
+    .helpRow .btn{flex:1}
+
+    /* ===== Modal preview ===== */
+    .modal{position:fixed;inset:0;display:none;place-items:center;background:rgba(0,0,0,.70);z-index:60;padding:16px}
+    .modal.open{display:grid}
+    .modalCard{
+      width:min(980px,96vw);
+      background:#fff;border-radius:24px;overflow:hidden;
+      display:grid;grid-template-columns:1.2fr .8fr;
+      box-shadow:0 30px 70px rgba(0,0,0,.25);
+    }
+    @media(max-width:920px){.modalCard{grid-template-columns:1fr}}
+    .modalMedia{position:relative;background:var(--soft);min-height:380px}
+    .modalMedia img{width:100%;height:100%;object-fit:contain;padding:10px}
+    .mnav{
+      position:absolute;top:50%;transform:translateY(-50%);
+      width:46px;height:46px;border-radius:999px;border:1px solid var(--line);
+      background:rgba(255,255,255,.95);cursor:pointer;font-weight:950;font-size:22px;
+      display:grid;place-items:center;
+      box-shadow:var(--shadow2);
+    }
+    .mnav.prev{left:12px}.mnav.next{right:12px}
+    .modalSide{padding:14px;display:flex;flex-direction:column;gap:10px}
+    .modalTop{display:flex;justify-content:space-between;gap:10px;align-items:flex-start}
+    .close{
+      width:42px;height:42px;border-radius:14px;border:1px solid var(--line);
+      background:var(--soft);cursor:pointer;font-weight:950
+    }
+    .thumbs{display:flex;gap:8px;flex-wrap:wrap}
+    .thumb{
+      width:58px;height:58px;border-radius:14px;border:1px solid var(--line);
+      overflow:hidden;background:var(--soft);cursor:pointer;opacity:.85
+    }
+    .thumb.active{opacity:1;border-color:var(--black)}
+    .thumb img{width:100%;height:100%;object-fit:cover}
+    /* ✅ Order Modal spacing */
+    #orderModal .modalCard{
+      border-radius:24px;
+    }
+
+    /* ✅ Order Modal spacing */
+    #orderModal .modalCard{ border-radius:24px; }
+
+    /* ==========================================================
+       ✅ MODAL CTA UPGRADE (Your request)
+       - WhatsApp/Call row first
+       - BIG Buy Now under it (glow + pulse + shine)
+       - Keep Details & Size Chart still available
+       ========================================================== */
+    .modalActionsRow{
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      margin-top:6px;
+    }
+    .modalActionsRow .btn{
+      flex:1;
+      min-width:150px;
+    }
+
+    .modalBuyBig{
+      width:100%;
+      margin-top:10px;
+      padding:16px 16px;
+      border-radius:18px;
+      font-size:16px;
+      font-weight:980;
+      border:none;
+      color:#fff;
+      background:linear-gradient(135deg, #0b0f1a, #1f2937);
+      box-shadow:0 18px 45px rgba(0,0,0,.28);
+      position:relative;
+      overflow:hidden;
+      animation:buyPulse 1.9s ease-in-out infinite;
+    }
+    .modalBuyBig:hover{
+      transform:translateY(-2px) scale(1.01);
+      box-shadow:0 26px 60px rgba(0,0,0,.36);
+    }
+    .modalBuyBig:active{transform:translateY(1px) scale(.99)}
+    @keyframes buyPulse{
+      0%,100%{ box-shadow:0 18px 45px rgba(0,0,0,.28), 0 0 0 rgba(255,255,255,0); }
+      50%{ box-shadow:0 22px 55px rgba(0,0,0,.36), 0 0 28px rgba(255,255,255,.12); }
+    }
+    /* Shine sweep */
+    .modalBuyBig::after{
+      content:"";
+      position:absolute;
+      top:-40%;
+      left:-40%;
+      width:40%;
+      height:180%;
+      background:linear-gradient(120deg, rgba(255,255,255,0), rgba(255,255,255,.30), rgba(255,255,255,0));
+      transform:rotate(18deg);
+      animation:buyShine 2.6s ease-in-out infinite;
+    }
+    @keyframes buyShine{
+      0%{ left:-50% }
+      60%{ left:120% }
+      100%{ left:120% }
+    }
+
+    .modalSecondaryRow{
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      margin-top:10px;
+    }
+    .modalSecondaryRow .btn{
+      flex:1;
+      min-width:150px;
+    }
+
+    /* ===== Checkout drawer ===== */
+    .drawer{position:fixed;inset:0;display:none;z-index:70}
+    .drawer.open{display:block}
+    .drawerBg{position:absolute;inset:0;background:rgba(0,0,0,.58)}
+    .panel{
+      position:absolute;right:0;top:0;height:100%;
+      width:min(480px,92vw);
+      background:#fff;border-left:1px solid var(--line);
+      padding:14px;display:flex;flex-direction:column;gap:10px;
+      box-shadow:-20px 0 50px rgba(0,0,0,.20);
+
+      /* ✅ FIX: allow drawer to scroll on mobile */
+      overflow-y: auto;
+      -webkit-overflow-scrolling: touch;
+      overscroll-behavior: contain;
+
+      /* ✅ FIX: keep space so Place Order isn’t hidden behind mobile UI */
+      padding-bottom: calc(14px + env(safe-area-inset-bottom) + 90px);
+    }
+
+    .panel h3{margin:0;font-size:16px}
+    .panel p{margin:0;color:var(--muted);font-weight:850;font-size:13px}
+
+    .ckTopBox{
+      display:flex;gap:12px;align-items:center;
+      border:1px solid var(--line);background:var(--soft);border-radius:16px;padding:10px;
+    }
+    .ckImg{
+      width:64px;height:64px;border-radius:14px;
+      border:1px solid var(--line);background:#fff;overflow:hidden;
+      flex:0 0 auto;display:grid;place-items:center;
+    }
+    .ckImg img{width:100%;height:100%;object-fit:cover}
+    .ckMeta{flex:1;min-width:0}
+    .ckMeta .label{font-weight:980;font-size:13px;margin-bottom:6px}
+    .ckMeta .sub{margin-top:6px;color:var(--muted);font-weight:850;font-size:12px}
+
+    .summary{
+      margin-top:2px;border:1px solid var(--line);border-radius:16px;background:var(--soft);
+      padding:12px;display:grid;gap:6px;font-weight:950
+    }
+    .summary span{display:flex;justify-content:space-between;gap:10px}
+    .form{margin-top:6px;display:grid;gap:10px}
+    label{display:block;font-size:12px;font-weight:950;color:#111}
+    input,select{
+      width:100%;padding:11px 12px;border:1px solid var(--line);border-radius:14px;
+      background:#fff;font-weight:850;margin-top:6px;outline:none
+    }
+    input:focus,select:focus{border-color:#c7cbd1;box-shadow:0 0 0 4px rgba(0,0,0,.06)}
+    .row2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+    @media(max-width:420px){.row2{grid-template-columns:1fr}}
+    .msg{font-weight:950}
+
+    /* ===== Sticky bottom bar (mobile) ===== */
+    .stickyBar{
+      position:fixed;left:0;right:0;bottom:0;
+      background:rgba(255,255,255,.94);
+      border-top:1px solid var(--line);
+      backdrop-filter: blur(8px);
+      padding:10px 12px;
+      z-index:80;
+      display:none;
+    }
+    @media(max-width:920px){
+      .stickyBar{display:none} /* ✅ hide sticky Buy Now on mobile */
+      body{padding-bottom:0}  /* ✅ no extra space needed now */
+    }
+    .stickyRow{display:flex;gap:10px;align-items:center;justify-content:space-between}
+    .stickyInfo{display:flex;flex-direction:column;gap:2px}
+    .stickyInfo b{font-weight:980}
+    .stickyInfo span{font-size:12px;color:var(--muted);font-weight:850}
+
+    footer{border-top:1px solid var(--line);padding:18px 0 34px;color:var(--muted);font-weight:850;font-size:13px}
+
+    /* ===== Reviews (3-up sliding carousel) ===== */
+    .reviewsTop{ justify-content:center; text-align:center; }
+    .reviewsTop h2{ width:100%; text-align:center; font-size:22px; }
+    .reviewsTop span{ width:100%; text-align:center; }
+    .revShell{ position:relative; margin-top:14px; }
+    .revViewport{ width:100%; overflow:hidden; border-radius:22px; }
+    .revTrack{
+      display:flex;
+      gap:12px;
+      transform:translateX(0px);
+      transition:transform .35s ease;
+      will-change:transform;
+      padding:6px 2px;
+    }
+    .revItem{
+      flex:0 0 calc((100% - 24px) / 3);
+      border-radius:18px;
+      overflow:hidden;
+      border:1px solid var(--line);
+      background:#fff;
+      box-shadow:var(--shadow2);
+      position:relative;
+      aspect-ratio:4/5;
+    }
+    @media(max-width:900px){ .revItem{ flex:0 0 calc((100% - 12px) / 2); } }
+    @media(max-width:520px){ .revItem{ flex:0 0 100%; } }
+    .revItem img{ width:100%; height:100%; object-fit:cover; display:block; }
+    .revBadge{
+      position:absolute;
+      left:10px; top:10px;
+      background:rgba(255,255,255,.92);
+      border:1px solid rgba(0,0,0,.08);
+      padding:6px 9px;
+      border-radius:999px;
+      font-size:12px;
+      font-weight:950;
+    }
+    .revNav{
+      position:absolute;
+      top:50%;
+      transform:translateY(-50%);
+      width:46px;height:46px;
+      border-radius:999px;border:1px solid var(--line);
+      background:rgba(255,255,255,.95);
+      cursor:pointer;font-weight:950;font-size:22px;
+      display:grid;place-items:center;
+      box-shadow:var(--shadow2);
+      z-index:10;
+    }
+    .revNav.prev{left:8px}
+    .revNav.next{right:8px}
+    .revDots{
+      display:flex;
+      justify-content:center;
+      gap:8px;
+      margin-top:10px;
+    }
+    .revDot{
+      width:8px;height:8px;border-radius:999px;
+      background:#d1d5db;border:1px solid #cbd5e1;
+      cursor:pointer;
+    }
+    .revDot.active{
+      background:var(--black);
+      border-color:var(--black);
+      transform:scale(1.05);
+    }
+
+    /* ===== HERO CTA BIG & ATTENTION GRAB ===== */
+    .heroCtaBig{ justify-content:center; align-items:center; gap:16px; margin-top:22px; }
+    .heroCtaBig .btn{ min-width:220px; padding:16px 22px; font-size:16px; border-radius:20px; }
+    .btnHeroMain{
+      background:linear-gradient(135deg, #0b0f1a, #1f2937);
+      color:#fff;
+      border:none;
+      box-shadow:0 22px 50px rgba(0,0,0,.35);
+      position:relative;
+      overflow:hidden;
+      animation:pulseHero 3.8s ease-in-out infinite;
+    }
+    @keyframes pulseHero{ 0%,100%{ transform:scale(1) } 50%{ transform:scale(1.05) } }
+    .btnHeroMain::after{
+      content:"";
+      position:absolute;
+      top:-40%;
+      left:-30%;
+      width:40%;
+      height:180%;
+      background:linear-gradient(120deg, rgba(255,255,255,0), rgba(255,255,255,.35), rgba(255,255,255,0));
+      transform:rotate(18deg);
+      animation:heroShine 2.6s ease-in-out infinite;
+    }
+    @keyframes heroShine{ 0%{ left:-40% } 60%{ left:120% } 100%{ left:120% } }
+    .btnHeroAlt{ background:#fff; border:2px dashed var(--black); font-weight:980; }
+    .heroCtaBig .btn:hover{ transform:translateY(-2px) scale(1.04); }
+    .heroCtaBig .btn:active{ transform:scale(.97); }
+    @media(max-width:520px){
+      .heroCtaBig{ flex-direction:column; }
+      .heroCtaBig .btn{ width:100%; min-width:0; }
+    }
+
+    /* ===== Size Chart Image (inside modal) ===== */
+    .sizePop{
+      display:none;
+      border:1px solid var(--line);
+      background:#fff;
+      border-radius:18px;
+      padding:12px;
+      box-shadow:var(--shadow2);
+      margin-top:10px;
+    }
+    .sizePop.open{ display:block; }
+    .sizePopHead{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:10px;
+      margin-bottom:10px;
+    }
+    .sizePopBody{
+      border:1px solid var(--line);
+      border-radius:14px;
+      overflow:hidden;
+      background:var(--soft);
+    }
+    .sizeChartImg{ width:100%; height:auto; display:block; }
+
+    /* ===== Floating WhatsApp (DESKTOP ONLY) ===== */
+    .waFloat{
+      position:fixed;
+      right:18px;
+      bottom:18px;
+      width:56px;
+      height:56px;
+      border-radius:999px;
+      background:#25D366;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      box-shadow:0 18px 40px rgba(0,0,0,.28);
+      z-index:9999;
+      transition:transform .15s ease, box-shadow .15s ease;
+    }
+    .waFloat:hover{
+      transform:scale(1.08);
+      box-shadow:0 26px 55px rgba(0,0,0,.38);
+    }
+    .waFloat svg{width:30px;height:30px;display:block;fill:#fff}
+    @media(max-width:920px){ .waFloat{display:none} }
+
+    /* ✅ DETAILS CTA UPGRADE (in-page details panel) */
+.detailsBuyBig{
+  width:100%;
+  margin-top:10px;
+  padding:16px 16px;
+  border-radius:18px;
+  font-size:16px;
+  font-weight:980;
+  border:none;
+  color:#fff;
+  background:linear-gradient(135deg, #0b0f1a, #1f2937);
+  box-shadow:0 18px 45px rgba(0,0,0,.28);
+  position:relative;
+  overflow:hidden;
+  animation:detailsBuyPulse 1.9s ease-in-out infinite;
+}
+
+.detailsBuyBig:hover{
+  transform:translateY(-2px) scale(1.01);
+  box-shadow:0 26px 60px rgba(0,0,0,.36);
+}
+.detailsBuyBig:active{transform:translateY(1px) scale(.99)}
+
+@keyframes detailsBuyPulse{
+  0%,100%{ box-shadow:0 18px 45px rgba(0,0,0,.28), 0 0 0 rgba(255,255,255,0); }
+  50%{ box-shadow:0 22px 55px rgba(0,0,0,.36), 0 0 28px rgba(255,255,255,.12); }
+}
+
+/* shine sweep */
+.detailsBuyBig::after{
+  content:"";
+  position:absolute;
+  top:-40%;
+  left:-40%;
+  width:40%;
+  height:180%;
+  background:linear-gradient(120deg, rgba(255,255,255,0), rgba(255,255,255,.30), rgba(255,255,255,0));
+  transform:rotate(18deg);
+  animation:detailsBuyShine 2.6s ease-in-out infinite;
+}
+
+@keyframes detailsBuyShine{
+  0%{ left:-50% }
+  60%{ left:120% }
+  100%{ left:120% }
+}
+
+/* Optional: make secondary row nicer */
+.detailsSecondaryRow{
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+  margin-top:10px;
+}
+.detailsSecondaryRow .btn{
+  flex:1;
+  min-width:140px;
+}
+
+  </style>
+</head>
+
+<body>
+  <div id="top"></div>
+
+  <div class="topbar">
+    <div class="wrap topbarRow">
+      <!-- ✅ Clickable logo + brand (go to top/home) -->
+      <a class="brand" href="#top" aria-label="GameOn Garb Home">
+        <div class="logo">
+          <img src="assets/logo/gameongarb-logo.png" alt="GameOnGarb Logo">
+        </div>
+        <div class="brandTxt">
+          <b>GameOn Garb</b>
+          <span>Winter Sale • Cash on Delivery</span>
+        </div>
+      </a>
+
+      <div class="topActions">
+        <div class="chipMini">📞 Confirmation call</div>
+        <div class="chipMini">🚚 Dhaka ৳70 • Outside ৳130</div>
+        <button class="btn btnPrimary btnSmall" id="openQuickBuy">Quick Order</button>
+      </div>
+    </div>
+  </div>
+
+  <section class="hero">
+    <div class="wrap heroGrid">
+      <div class="heroCard">
+        <h1 class="heroTitle">Winter Collection Deals — Limited Stock 🔥</h1>
+        <p class="heroSub">
+          Premium Tracksuits • Sweatshirts • Jackets.
+        </p>
+
+        <div class="trustRow">
+          <div class="trustPill">✅ Cash on Delivery</div>
+          <div class="trustPill">🚚 Fast delivery</div>
+          <div class="trustPill">🧵 Premium quality</div>
+        </div>
+        <div class="heroCta heroCtaBig">
+          <a class="btn btnPrimary btnHeroMain" href="#products">Shop & Order</a>
+          <button class="btn btnSoft btnHeroAlt" id="openBest">Best Picks</button>
+        </div>
+
+      </div>
+
+      <div>
+        <div class="heroMedia" id="heroBox">
+          <button class="nav prev" id="hPrev">‹</button>
+
+          <div class="heroStage">
+            <img id="hImgA" alt="Featured product" />
+            <img id="hImgB" alt="Featured product" />
+          </div>
+
+          <button class="nav next" id="hNext">›</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="wrap controls">
+      <div class="tabs">
+        <button class="tab active" data-cat="all">All</button>
+        <button class="tab" data-cat="Tracksuits">Tracksuits</button>
+        <button class="tab" data-cat="Sweatshirts">Sweatshirts</button>
+        <button class="tab" data-cat="Jackets">Jackets</button>
+      </div>
+      <div class="search">
+        <input id="q" type="search" placeholder="Search (adidas, brazil, jacket...)" />
+        <button class="btn btnSmall btnSoft" id="clear">Clear</button>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="detailsSection">
+    <div class="wrap">
+      <div class="head">
+        <h2>Product Details</h2>
+        <span>Tap “Details” to see here</span>
+      </div>
+
+      <div class="detailsWrap" id="detailsWrap">
+        <div class="detailsGrid">
+          <div class="detailsMedia">
+            <img id="dImg" alt="product" />
+          </div>
+
+          <div class="detailsBox">
+            <h3 id="dTitle">—</h3>
+
+            <div class="kvs">
+              <div class="kvRow"><small>Category</small><b id="dCat">—</b></div>
+              <div class="kvRow"><small>Price</small><b id="dPrice">—</b></div>
+              <div class="kvRow"><small>Old Price</small><b id="dWas">—</b></div>
+              <div class="kvRow"><small>Stock</small><b id="dStock">—</b></div>
+            </div>
+
+            <div class="chips">
+              <div class="chip">✅ COD Available</div>
+              <div class="chip">🚚 Dhaka ৳70 / Outside ৳130</div>
+              <div class="chip">📞 Confirmation call</div>
+              <div class="chip">🧵 Quality check</div>
+            </div>
+
+            <!-- ✅ WhatsApp + Call FIRST -->
+            <div class="helpRow">
+              <a class="btn btnGreen" id="dWhatsApp" target="_blank" rel="noopener">WhatsApp</a>
+              <a class="btn btnBlue" id="dCall" href="#">Call</a>
+            </div>
+
+            <!-- ✅ BIG Buy Now (glow + pulse) -->
+            <button class="btn detailsBuyBig" id="dBuy">Buy Now</button>
+
+            <!-- ✅ Secondary buttons -->
+            <div class="detailsSecondaryRow">
+              <button class="btn btnSoft" id="dPreview">More Photos</button>
+              <button class="btn btnSoft" id="dSizeChart">Size Chart</button>
+              <button class="btn btnSoft" id="dCloseBtn">Hide</button>
+            </div>
+
+            <!-- Size chart popup (DETAILS section) -->
+            <div class="sizePop" id="dSizePop">
+              <div class="sizePopHead">
+                <b id="dSizePopTitle">Size Chart</b>
+                <button class="close" id="dSizeClose">✕</button>
+              </div>
+
+              <div class="sizePopBody" id="dSizePopBody"></div>
+            </div>
+
+            <div style="color:var(--muted);font-weight:850;font-size:12px">
+              Size tip: If you like relaxed fit, choose one size up.
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <section id="products" class="section">
+    <div class="wrap">
+      <div class="head">
+        <h2>Products</h2>
+        <span id="count">Loading…</span>
+      </div>
+
+      <div class="grid" id="grid"></div>
+    </div>
+  </section>
+
+  <!-- ✅ Customer Reviews (Photo Carousel) -->
+  <section class="section" id="reviews">
+    <div class="wrap">
+      <div class="reviews">
+        <div class="reviewsTop">
+          <h2>Customer Reviews</h2>
+          <span>Real photos from customers</span>
+        </div>
+
+        <div class="revShell">
+          <button class="revNav prev" id="revPrev">‹</button>
+          <button class="revNav next" id="revNext">›</button>
+
+          <div class="revViewport">
+            <div class="revTrack" id="revTrack"></div>
+          </div>
+
+          <div class="revDots" id="revDots"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="wrap">© GameOn Garb • Campaign Landing Page • COD • Bangladesh</div>
+  </footer>
+
+  <!-- Preview modal -->
+  <div class="modal" id="modal">
+    <div class="modalCard">
+      <div class="modalMedia">
+        <button class="mnav prev" id="mPrev">‹</button>
+        <img id="mImg" alt="preview" />
+        <button class="mnav next" id="mNext">›</button>
+      </div>
+
+      <div class="modalSide">
+        <div class="modalTop">
+          <div>
+            <div style="font-weight:980" id="mTitle"></div>
+            <div style="font-size:13px;color:var(--muted);font-weight:850" id="mMeta"></div>
+          </div>
+          <button class="close" id="mClose">✕</button>
+        </div>
+
+        <div class="price">
+          <div class="now" id="mNow">৳0</div>
+          <div class="was" id="mWas"></div>
+        </div>
+
+        <div style="display:flex;justify-content:space-between;gap:10px;align-items:center">
+          <div class="chipMini" id="mStock">Stock: —</div>
+        </div>
+
+        <div class="thumbs" id="thumbs"></div>
+
+        <!-- ✅ MOVED: WhatsApp + Call FIRST -->
+        <div class="modalActionsRow">
+          <a class="btn btnGreen" id="mWhatsApp" target="_blank" rel="noopener">WhatsApp</a>
+          <a class="btn btnBlue" id="mCall" href="#">Call</a>
+        </div>
+
+        <!-- ✅ BIG Buy Now SECOND (glow + pulse) -->
+        <button class="btn modalBuyBig" id="mBuy">Buy Now</button>
+
+        <!-- ✅ Keep Details + Size Chart (still available) -->
+        <div class="modalSecondaryRow">
+          <button class="btn btnSoft" id="mDetails">Details</button>
+          <button class="btn btnSoft" id="mSizeChart">Size Chart</button>
+        </div>
+
+        <!-- Size chart popup -->
+        <div class="sizePop" id="sizePop">
+          <div class="sizePopHead">
+            <b id="sizePopTitle">Size Chart</b>
+            <button class="close" id="sizeClose">✕</button>
+          </div>
+
+          <div class="sizePopBody" id="sizePopBody"></div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- Checkout drawer -->
+  <div class="drawer" id="drawer">
+    <div class="drawerBg" id="dBg"></div>
+    <div class="panel">
+      <div style="display:flex;justify-content:space-between;align-items:center;gap:10px">
+        <div>
+          <h3>Quick Checkout (COD)</h3>
+          <p>Confirm product, select size, fill address — then order.</p>
+        </div>
+        <button class="close" id="dClose">✕</button>
+      </div>
+
+      <!-- Checkout Product Preview + Switch -->
+      <div class="ckTopBox">
+        <div class="ckImg"><img id="ckImg" alt="Selected product"></div>
+        <div class="ckMeta">
+          <div class="label">Selected Product</div>
+          <select id="ckProduct" style="margin-top:0"></select>
+          <div class="sub" id="ckStock">Stock: —</div>
+        </div>
+      </div>
+
+      <div class="summary">
+        <span><b id="sName">No product selected</b></span>
+        <span><small>Price</small> <b id="sPrice">৳0</b></span>
+        <span><small>Delivery</small> <b id="sShip">৳0</b></span>
+        <span><small>Total</small> <b id="sTotal">৳0</b></span>
+      </div>
+
+      <div class="form">
+        <label>Name *
+          <input id="cName" placeholder="Your name" autocomplete="name">
+        </label>
+
+        <label>Phone *
+          <input id="cPhone" placeholder="01XXXXXXXXX" inputmode="tel" autocomplete="tel">
+        </label>
+
+        <label>Address *
+          <input id="cAddr" placeholder="House, Road, Area" autocomplete="street-address">
+        </label>
+
+        <div class="row2">
+          <label>Area *
+            <select id="cArea">
+              <option value="">Select</option>
+              <option value="dhaka">Dhaka (৳70)</option>
+              <option value="outside">Outside Dhaka (৳130)</option>
+            </select>
+          </label>
+
+          <label>Qty
+            <select id="cQty">
+              <option>1</option><option>2</option><option>3</option>
+            </select>
+          </label>
+        </div>
+
+        <div class="row2">
+          <label>Size
+            <select id="cSize">
+              <option value="">Select</option>
+            </select>
+          </label>
+
+          <label>Need help?
+            <div style="display:flex;gap:10px;margin-top:6px">
+              <a class="btn btnGreen btnSmall" id="cWhatsApp" target="_blank" rel="noopener" style="flex:1">WhatsApp</a>
+              <a class="btn btnBlue btnSmall" id="cCall" href="#" style="flex:1">Call</a>
+            </div>
+          </label>
+        </div>
+
+        <button class="btn btnPrimary btnWide" id="place">Place Order</button>
+        <div class="msg" id="cMsg"></div>
+      </div>
+
+      <div style="margin-top:auto;color:var(--muted);font-weight:850;font-size:12px">
+        After order, our team will call you to confirm. Please keep phone reachable.
+      </div>
+    </div>
+  </div>
+
+  <!-- Sticky bottom bar (mobile) -->
+  <div class="stickyBar" id="stickyBar">
+    <div class="stickyRow">
+      <div class="stickyInfo">
+        <b id="stickyTitle">Quick Order</b>
+        <span id="stickySub">COD • Delivery charge shown</span>
+      </div>
+      <button class="btn btnPrimary" id="stickyBuy">Buy Now</button>
+    </div>
+  </div>
+
+  <!-- ✅ Order Confirmation Popup -->
+  <div class="modal" id="orderModal" style="z-index:999; display:none;">
+    <div class="modalCard" style="grid-template-columns:1fr; width:min(520px,96vw);">
+      <div style="padding:16px;">
+        <div style="display:flex;justify-content:space-between;align-items:center;gap:10px;">
+          <div style="font-weight:980;font-size:16px;" id="orderModalTitle">Order Status</div>
+          <button class="close" id="orderModalClose">✕</button>
+        </div>
+
+        <div id="orderModalBody" style="margin-top:12px;font-weight:850;color:var(--text);line-height:1.4;"></div>
+
+        <div style="display:flex;gap:10px;margin-top:14px;">
+          <button class="btn btnPrimary" id="orderModalOk" style="flex:1;">OK</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+<<<<<<< HEAD
+=======
+  <!-- ✅ Floating WhatsApp (desktop only) -->
+  <a class="waFloat" id="waFloat" target="_blank" rel="noopener" aria-label="Chat on WhatsApp">
+    <svg viewBox="0 0 32 32" aria-hidden="true">
+      <path d="M19.11 17.16c-.27-.14-1.6-.79-1.85-.88-.25-.09-.43-.14-.61.14-.18.27-.7.88-.86 1.06-.16.18-.32.2-.59.07-.27-.14-1.14-.42-2.17-1.34-.8-.72-1.34-1.61-1.5-1.88-.16-.27-.02-.41.12-.55.12-.12.27-.32.41-.48.14-.16.18-.27.27-.45.09-.18.05-.34-.02-.48-.07-.14-.61-1.48-.84-2.03-.22-.53-.45-.46-.61-.47l-.52-.01c-.18 0-.48.07-.73.34-.25.27-.96.94-.96 2.29 0 1.35.98 2.66 1.12 2.84.14.18 1.93 2.95 4.68 4.13.66.28 1.18.45 1.58.57.66.21 1.26.18 1.73.11.53-.08 1.6-.65 1.83-1.27.23-.62.23-1.15.16-1.27-.07-.12-.25-.2-.52-.34zM16.02 27.5h-.01c-1.95 0-3.86-.53-5.52-1.54l-.4-.24-4.11 1.08 1.1-4.01-.26-.41c-1.09-1.72-1.66-3.72-1.66-5.78 0-5.99 4.88-10.86 10.88-10.86 2.9 0 5.62 1.13 7.68 3.18 2.05 2.05 3.18 4.78 3.18 7.68 0 5.99-4.88 10.9-10.88 10.9zm9.24-20.11A12.85 12.85 0 0 0 16.02 3.5C8.94 3.5 3.18 9.26 3.18 16.34c0 2.26.59 4.46 1.71 6.4L3.07 29.5l6.94-1.82a12.8 12.8 0 0 0 6.01 1.53h.01c7.08 0 12.84-5.79 12.84-12.87 0-3.43-1.34-6.66-3.61-8.95z"/>
+    </svg>
+  </a>
+
+>>>>>>> fd6d1df (UI improvements: big Buy Now button, details popup CTA, WhatsApp UX)
+  <script>
+    // ==========================================================
+    // CONFIG
+    // ==========================================================
+    const SHIP_DHAKA = 70;
+    const SHIP_OUTSIDE = 130;
+    const fmtBDT = (n) => "৳" + Number(n).toLocaleString("en-US");
+
+    // Put YOUR support phone number here (Bangladesh):
+    const SUPPORT_PHONE = "01711992409"; // change this
+    // WhatsApp needs country code, BD = 880 (example: 8801XXXXXXXXX)
+    const WHATSAPP_NUMBER = "8801711992409"; // change this
+
+    // ==========================================================
+    // SIZE CHART (per category) ✅ add this
+    // ==========================================================
+    const SIZE_CHARTS = {
+      Tracksuits: "/assets/sizecharts/tracksuits.webp",
+      Sweatshirts: "/assets/sizecharts/sweatshirts.webp",
+      Jackets: "/assets/sizecharts/jackets.webp",
+    };
+    function renderSizeChart(category, titleEl, bodyEl){
+      const imgSrc = SIZE_CHARTS[category];
+
+      titleEl.textContent = category + " Size Chart";
+
+      if(!imgSrc){
+        bodyEl.innerHTML = `
+          <div style="padding:10px;font-weight:850;color:var(--muted)">
+            Size chart not found for this category.
+          </div>
+        `;
+        return;
+      }
+
+      bodyEl.innerHTML = `
+        <img class="sizeChartImg" src="${imgSrc}" alt="${category} size chart"
+             loading="lazy"
+             onerror="this.outerHTML='<div style=padding:10px;font-weight:850;color:var(--muted)>❌ Size chart image not found: ${imgSrc}</div>';">
+
+      `;
+    }
+
+    function waLink(message){
+      const text = encodeURIComponent(message);
+      return `https://wa.me/${WHATSAPP_NUMBER}?text=${text}`;
+    }
+    function callLink(){
+      return `tel:${SUPPORT_PHONE}`;
+    }
+    // ✅ Order confirmation popup helpers
+    const orderModal = document.getElementById("orderModal");
+    const orderModalTitle = document.getElementById("orderModalTitle");
+    const orderModalBody = document.getElementById("orderModalBody");
+    const orderModalClose = document.getElementById("orderModalClose");
+    const orderModalOk = document.getElementById("orderModalOk");
+
+    function openOrderPopup(title, html){
+      orderModalTitle.textContent = title || "Order Status";
+      orderModalBody.innerHTML = html || "";
+      orderModal.style.display = "grid";
+      orderModal.classList.add("open");
+      document.body.style.overflow = "hidden";
+    }
+
+    function closeOrderPopup(){
+      orderModal.classList.remove("open");
+      orderModal.style.display = "none";
+      document.body.style.overflow = "";
+    }
+
+    if(orderModalClose) orderModalClose.onclick = closeOrderPopup;
+    if(orderModalOk) orderModalOk.onclick = closeOrderPopup;
+
+    if(orderModal){
+      orderModal.addEventListener("click", (e)=>{
+        if(e.target === orderModal) closeOrderPopup();
+      });
+    }
+
+    // ✅ Floating WhatsApp link (desktop only, always available)
+    const waFloat = document.getElementById("waFloat");
+    if(waFloat){
+      waFloat.href = waLink("Hi! I need help with GameOn Garb order.");
+    }
+
+    // ✅ Order confirmation popup helpers
+    const orderModal = document.getElementById("orderModal");
+    const orderModalTitle = document.getElementById("orderModalTitle");
+    const orderModalBody = document.getElementById("orderModalBody");
+    const orderModalClose = document.getElementById("orderModalClose");
+    const orderModalOk = document.getElementById("orderModalOk");
+
+    function openOrderPopup(title, html){
+      orderModalTitle.textContent = title || "Order Status";
+      orderModalBody.innerHTML = html || "";
+      orderModal.style.display = "grid";
+      orderModal.classList.add("open");
+      document.body.style.overflow = "hidden";
+    }
+
+    function closeOrderPopup(){
+      orderModal.classList.remove("open");
+      orderModal.style.display = "none";
+      document.body.style.overflow = "";
+    }
+
+    if(orderModalClose) orderModalClose.onclick = closeOrderPopup;
+    if(orderModalOk) orderModalOk.onclick = closeOrderPopup;
+
+    if(orderModal){
+      orderModal.addEventListener("click", (e)=>{
+        if(e.target === orderModal) closeOrderPopup();
+      });
+    }
+
+    // ==========================================================
+    // PRODUCT DEFINITIONS (sizes + stock)
+    // ids MUST match folder name in public/assets/products/<id>/
+    // ==========================================================
+    const productDefs = [
+      // Tracksuits
+      { id:"ts-266", category:"Tracksuits", name:"Adidas Navy Blue Men’s Premium Tracksuit", now:1400, was:1600, off:13, stock: 7, sizes:["M","L","XL","XXL","3XL"], link:"https://www.gameongarb.com/product/adidas-navy-blue-men%E2%80%99s-premium-tracksuit-266", imageDir:"/assets/products/ts-266" },
+      { id:"ts-265", category:"Tracksuits", name:"Adidas Emerald Green & Black Men’s Premium Tracksuit", now:1400, was:1600, off:13, stock: 6, sizes:["M","L","XL","XXL"], link:"https://www.gameongarb.com/product/adidas-emerald-green-%26-black-men%E2%80%99s-premium-tracksuit-265", imageDir:"/assets/products/ts-265" },
+      { id:"ts-264", category:"Tracksuits", name:"Adidas Black Men’s Premium Tracksuit", now:1400, was:1600, off:13, stock: 8, sizes:["M","L","XL","XXL"], link:"https://www.gameongarb.com/product/adidas-black-men%E2%80%99s-premium-tracksuit-264", imageDir:"/assets/products/ts-264" },
+      { id:"ts-263", category:"Tracksuits", name:"Adidas Ash Men’s Premium Tracksuit", now:1400, was:1600, off:13, stock: 5, sizes:["M","L","XL","XXL"], link:"https://www.gameongarb.com/product/adidas-ash-men%E2%80%99s-premium-tracksuit-263", imageDir:"/assets/products/ts-263" },
+      { id:"ts-262", category:"Tracksuits", name:"Adidas Ash & Ocean Blue Men’s Premium Tracksuit", now:1400, was:1600, off:13, stock: 4, sizes:["M","L","XL","XXL"], link:"https://www.gameongarb.com/product/adidas-ash-%26-ocean-blue-men%E2%80%99s-premium-tracksuit-262", imageDir:"/assets/products/ts-262" },
+      { id:"ts-261", category:"Tracksuits", name:"Adidas Navy Blue Men’s Premium (Alt)", now:1400, was:1600, off:13, stock: 9, sizes:["M","L","XL","XXL"], link:"https://www.gameongarb.com/subcategory/tracksuit", imageDir:"/assets/products/ts-261" },
+
+      // Sweatshirts
+      { id:"sw-191", category:"Sweatshirts", name:"Premium Argentina Sweatshirt", now:950, was:1050, off:10, stock: 10, sizes:["L","XL","XXL"], link:"https://www.gameongarb.com/product/premium-argentina-sweatshirt-191", imageDir:"/assets/products/sw-191" },
+      { id:"sw-190", category:"Sweatshirts", name:"Brazil Premium Sweatshirt", now:950, was:1050, off:10, stock: 11, sizes:["L","XL","XXL"], link:"https://www.gameongarb.com/product/brazil-premium-sweatshirt-190", imageDir:"/assets/products/sw-190" },
+
+      // Jackets
+      { id:"jk-131", category:"Jackets", name:"Double Layer Imported Jacket for Men (Ash)", now:2000, was:2200, off:9, stock: 3, sizes:["XL","2XL","3XL","4XL","5XL"], link:"https://www.gameongarb.com/subcategory/jacket", imageDir:"/assets/products/jk-131" },
+      { id:"jk-132", category:"Jackets", name:"Double Layer Imported Jacket for Men (Red)", now:2000, was:2200, off:9, stock: 3, sizes:["XL","2XL","3XL","4XL","5XL"], link:"https://www.gameongarb.com/subcategory/jacket", imageDir:"/assets/products/jk-132" },
+      { id:"jk-133", category:"Jackets", name:"Double Layer Imported Jacket for Men (New)", now:2000, was:2200, off:9, stock: 3, sizes:["XL","2XL","3XL","4XL","5XL"], link:"https://www.gameongarb.com/subcategory/jacket", imageDir:"/assets/products/jk-133" }
+    ];
+
+    // ==========================================================
+    // MANIFEST LOADER (local images)
+    // ==========================================================
+    async function loadManifest(){
+      try{
+        const res = await fetch("/assets/products/manifest.json?ts=" + Date.now());
+        if(!res.ok) throw new Error("manifest not found");
+        return await res.json();
+      }catch(e){
+        console.warn("⚠️ manifest.json not loaded:", e.message);
+        return {};
+      }
+    }
+
+    function encodeFileName(fileName){
+      // Encode only filename segment (supports spaces, commas, parentheses, keeps ..webp valid)
+      return encodeURIComponent(fileName);
+    }
+
+    async function buildProducts(){
+      const manifest = await loadManifest();
+
+      return productDefs.map(p=>{
+        const files = (manifest[p.id] || [])
+          .filter(Boolean)
+          .sort((a,b)=>{
+            const aBad = a.includes("..webp");
+            const bBad = b.includes("..webp");
+            if(aBad !== bBad) return aBad ? 1 : -1;
+            return a.localeCompare(b, undefined, { numeric:true, sensitivity:"base" });
+          });
+
+        const images = files.length
+          ? files.map(fn => `${p.imageDir}/${encodeFileName(fn)}`)
+          : [];
+
+        // fallback so UI doesn't crash
+        if(!images.length){
+          images.push(`${p.imageDir}/1.webp`, `${p.imageDir}/1.jpg`, `${p.imageDir}/1.jpeg`, `${p.imageDir}/1.png`);
+        }
+
+        return { ...p, images };
+      });
+    }
+
+    // ==========================================================
+    // GLOBAL STATE
+    // ==========================================================
+    let products = [];
+    let activeCat = "all";
+    // ✅ NEW: Category priority (Jackets first, then Tracksuits, then Sweatshirts)
+    const CATEGORY_PRIORITY = { "Jackets": 1, "Tracksuits": 2, "Sweatshirts": 3 };
+
+    // ==========================================================
+    // HERO SLIDER
+    // ==========================================================
+    const heroSlides = [];
+    let hIdx = 0;
+    let heroTimer = null;
+    let heroUsingA = true;
+
+    const heroBox = document.getElementById("heroBox");
+    const hImgA = document.getElementById("hImgA");
+    const hImgB = document.getElementById("hImgB");
+
+    function heroSet(i){
+      if(!heroSlides.length) return;
+      hIdx = (i + heroSlides.length) % heroSlides.length;
+
+      const nextSrc = heroSlides[hIdx];
+      const incoming = heroUsingA ? hImgB : hImgA;
+      const outgoing = heroUsingA ? hImgA : hImgB;
+
+      incoming.classList.remove("active");
+      incoming.src = nextSrc;
+
+      incoming.onload = () => {
+        outgoing.classList.remove("active");
+        incoming.classList.add("active");
+        heroUsingA = !heroUsingA;
+      };
+
+      setTimeout(() => {
+        outgoing.classList.remove("active");
+        incoming.classList.add("active");
+        heroUsingA = !heroUsingA;
+      }, 650);
+    }
+
+    function heroStart(){ heroStop(); heroTimer = setInterval(() => heroSet(hIdx + 1), 3200); }
+    function heroStop(){ if(heroTimer) clearInterval(heroTimer); heroTimer = null; }
+
+    document.getElementById("hPrev").addEventListener("click", ()=>{ heroSet(hIdx - 1); heroStart(); });
+    document.getElementById("hNext").addEventListener("click", ()=>{ heroSet(hIdx + 1); heroStart(); });
+    heroBox.addEventListener("mouseenter", heroStop);
+    heroBox.addEventListener("mouseleave", heroStart);
+    document.addEventListener("visibilitychange", ()=>{ if(document.hidden) heroStop(); else heroStart(); });
+
+    // ==========================================================
+    // FILTER + RENDER
+    // ==========================================================
+    const grid = document.getElementById("grid");
+    const count = document.getElementById("count");
+    const q = document.getElementById("q");
+
+    function filtered(){
+      const s = q.value.trim().toLowerCase();
+      return products
+        .filter(p=>{
+          const catOK = activeCat==="all" || p.category===activeCat;
+          const searchOK = !s || p.name.toLowerCase().includes(s) || p.category.toLowerCase().includes(s);
+          return catOK && searchOK;
+        })
+        .sort((a,b)=>{
+          const pa = CATEGORY_PRIORITY[a.category] ?? 999;
+          const pb = CATEGORY_PRIORITY[b.category] ?? 999;
+          if(pa !== pb) return pa - pb;          // category order
+          return a.name.localeCompare(b.name);   // inside category A→Z
+        });
+
+    }
+
+    function safeFirstImg(p){
+      return (p.images && p.images[0]) ? p.images[0] : "";
+    }
+
+    function stockText(p){
+      const n = Number(p.stock || 0);
+      if(!n) return "Stock: Limited";
+      if(n <= 3) return `Only ${n} left`;
+      if(n <= 7) return `Limited: ${n} pcs`;
+      return `Stock: ${n} pcs`;
+    }
+
+    function render(){
+      const list = filtered();
+      count.textContent = `${list.length} shown • ${products.length} total`;
+
+      grid.innerHTML = list.map(p=>{
+        const was = p.was ? `<div class="was">${fmtBDT(p.was)}</div>` : "";
+        const tag = p.off ? `<div class="tag">${p.off}% OFF</div>` : "";
+        const first = safeFirstImg(p);
+        const sb = `<div class="stockBadge">${stockText(p)}</div>`;
+
+        return `
+          <article class="card">
+            <div class="imgBox" data-open="${p.id}">
+              <img src="${first}" alt="${p.name}" loading="lazy"
+                   onerror="this.style.opacity=.25; this.title='Image not found';">
+              ${tag}
+              ${sb}
+            </div>
+            <div class="body">
+              <div class="title">${p.name}</div>
+              <div class="meta">${p.category}</div>
+              <div class="price">
+                <div class="now">${fmtBDT(p.now)}</div>
+                ${was}
+              </div>
+              <div class="actions">
+                <button class="btn btnPrimary" data-buy="${p.id}">Buy Now</button>
+                <button class="btn btnSoft" data-details="${p.id}">Details</button>
+              </div>
+            </div>
+          </article>
+        `;
+      }).join("");
+
+      grid.querySelectorAll("[data-open]").forEach(el=>{
+        el.addEventListener("click", ()=>openModal(el.dataset.open));
+      });
+      grid.querySelectorAll("[data-buy]").forEach(el=>{
+        el.addEventListener("click", ()=>openCheckout(el.dataset.buy));
+      });
+      grid.querySelectorAll("[data-details]").forEach(el=>{
+        el.addEventListener("click", ()=>showDetails(el.dataset.details, true));
+      });
+    }
+
+    document.querySelectorAll(".tab").forEach(t=>{
+      t.addEventListener("click", ()=>{
+        document.querySelectorAll(".tab").forEach(x=>x.classList.remove("active"));
+        t.classList.add("active");
+        activeCat = t.dataset.cat;
+        render();
+      });
+    });
+
+    document.getElementById("clear").addEventListener("click", ()=>{ q.value=""; render(); q.focus(); });
+    q.addEventListener("input", render);
+    document.getElementById("openBest").addEventListener("click", ()=> {
+      document.getElementById("products").scrollIntoView({behavior:"smooth"});
+    });
+
+    // ==========================================================
+    // DETAILS (IN-PAGE)
+    // ==========================================================
+    const detailsWrap = document.getElementById("detailsWrap");
+    const dImg = document.getElementById("dImg");
+    const dTitle = document.getElementById("dTitle");
+    const dCat = document.getElementById("dCat");
+    const dPrice = document.getElementById("dPrice");
+    const dWas = document.getElementById("dWas");
+    const dStock = document.getElementById("dStock");
+    const dBuy = document.getElementById("dBuy");
+    const dPreview = document.getElementById("dPreview");
+    const dCloseBtn = document.getElementById("dCloseBtn");
+    const dWhatsApp = document.getElementById("dWhatsApp");
+    const dCall = document.getElementById("dCall");
+    const dSizeChart = document.getElementById("dSizeChart");
+    const dSizePop = document.getElementById("dSizePop");
+    const dSizeClose = document.getElementById("dSizeClose");
+    const dSizePopTitle = document.getElementById("dSizePopTitle");
+    const dSizePopBody = document.getElementById("dSizePopBody");
+
+    let detailsProduct = null;
+
+    function showDetails(id, scroll){
+      detailsProduct = products.find(p=>p.id===id);
+      if(!detailsProduct) return;
+
+      detailsWrap.classList.add("show");
+      dImg.src = safeFirstImg(detailsProduct);
+      dTitle.textContent = detailsProduct.name;
+      dCat.textContent = detailsProduct.category;
+      dPrice.textContent = fmtBDT(detailsProduct.now);
+      dWas.textContent = detailsProduct.was ? fmtBDT(detailsProduct.was) : "—";
+      dStock.textContent = stockText(detailsProduct);
+
+      dBuy.onclick = ()=>openCheckout(detailsProduct.id);
+      dPreview.onclick = ()=>openModal(detailsProduct.id);
+
+      dWhatsApp.href = waLink(`Hi! I need help with: ${detailsProduct.name}`);
+      dCall.href = callLink();
+
+      // update floating whatsapp to match selected product (desktop)
+      if(waFloat){
+        waFloat.href = waLink(`Hi! I need help with: ${detailsProduct.name}`);
+      }
+
+      if(scroll){
+        document.getElementById("detailsSection").scrollIntoView({behavior:"smooth", block:"start"});
+      }
+
+      setSticky(detailsProduct);
+
+      // ✅ DETAILS size chart popup
+      dSizePop.classList.remove("open");
+
+      dSizeChart.onclick = () => {
+        const willOpen = !dSizePop.classList.contains("open");
+        dSizePop.classList.toggle("open", willOpen);
+
+        if(willOpen){
+          renderSizeChart(detailsProduct.category, dSizePopTitle, dSizePopBody);
+        }
+      };
+
+      dSizeClose.onclick = () => dSizePop.classList.remove("open");
+    }
+
+    dCloseBtn.addEventListener("click", ()=>{
+      detailsWrap.classList.remove("show");
+      dSizePop.classList.remove("open");
+      detailsProduct = null;
+      setSticky(products[0] || null);
+      if(waFloat){
+        waFloat.href = waLink("Hi! I need help with GameOn Garb order.");
+      }
+    });
+
+    // ==========================================================
+    // MODAL CAROUSEL
+    // ==========================================================
+    const modal = document.getElementById("modal");
+    const mImg = document.getElementById("mImg");
+    const mTitle = document.getElementById("mTitle");
+    const mMeta = document.getElementById("mMeta");
+    const mNow = document.getElementById("mNow");
+    const mWas = document.getElementById("mWas");
+    const mStock = document.getElementById("mStock");
+    const thumbs = document.getElementById("thumbs");
+    const mBuy = document.getElementById("mBuy");
+    const mDetails = document.getElementById("mDetails");
+    const mSizeChart = document.getElementById("mSizeChart");
+    const sizePop = document.getElementById("sizePop");
+    const sizeClose = document.getElementById("sizeClose");
+    const sizePopTitle = document.getElementById("sizePopTitle");
+    const sizePopBody = document.getElementById("sizePopBody");
+    const mWhatsApp = document.getElementById("mWhatsApp");
+    const mCall = document.getElementById("mCall");
+
+    let current = null, imgIdx = 0;
+
+    function setModalImg(i){
+      if(!current || !current.images || !current.images.length) return;
+      const total = current.images.length;
+      imgIdx = (i + total) % total;
+      mImg.src = current.images[imgIdx];
+      thumbs.querySelectorAll(".thumb").forEach((t,ti)=>t.classList.toggle("active", ti===imgIdx));
+    }
+
+    function openModal(id){
+      current = products.find(p=>p.id===id);
+      if(!current) return;
+      imgIdx = 0;
+
+      mTitle.textContent = current.name;
+      mMeta.textContent = current.category;
+      mNow.textContent = fmtBDT(current.now);
+      if(current.was){ mWas.textContent = fmtBDT(current.was); mWas.style.display="block"; }
+      else { mWas.textContent=""; mWas.style.display="none"; }
+
+      mStock.textContent = stockText(current);
+
+      mWhatsApp.href = waLink(`Hi! I want to know about: ${current.name}`);
+      mCall.href = callLink();
+
+      // update floating whatsapp to match modal product (desktop)
+      if(waFloat){
+        waFloat.href = waLink(`Hi! I need help with: ${current.name}`);
+      }
+
+      thumbs.innerHTML = (current.images || []).map((src,i)=>`
+        <div class="thumb ${i===0?'active':''}" data-i="${i}">
+          <img src="${src}" alt="thumb" loading="lazy">
+        </div>
+      `).join("");
+
+      thumbs.querySelectorAll(".thumb").forEach(t=>{
+        const i = Number(t.dataset.i);
+        t.addEventListener("click", ()=>setModalImg(i));
+      });
+
+      mBuy.onclick = ()=>{ closeModal(); openCheckout(current.id); };
+      mDetails.onclick = ()=>{ closeModal(); showDetails(current.id, true); };
+
+      // reset size pop each time modal opens
+      sizePop.classList.remove("open");
+
+      // Size chart button
+      mSizeChart.onclick = () => {
+        const imgSrc = SIZE_CHARTS[current.category];
+
+        sizePopTitle.textContent = current.category + " Size Chart";
+
+        if(!imgSrc){
+          sizePopBody.innerHTML = `
+            <div style="padding:10px;font-weight:850;color:var(--muted)">
+              Size chart not found for this category.
+            </div>
+          `;
+        } else {
+          sizePopBody.innerHTML = `
+            <img class="sizeChartImg" src="${imgSrc}" alt="${current.category} size chart"
+                 loading="lazy"
+                 onerror="this.style.opacity=.25; this.title='Size chart image missing';">
+          `;
+        }
+
+        sizePop.classList.toggle("open");
+      };
+
+      // close button
+      sizeClose.onclick = () => sizePop.classList.remove("open");
+
+      setModalImg(0);
+      modal.classList.add("open");
+      document.body.style.overflow="hidden";
+    }
+
+    function closeModal(){
+      modal.classList.remove("open");
+      sizePop.classList.remove("open");
+      document.body.style.overflow="";
+    }
+
+    document.getElementById("mClose").addEventListener("click", closeModal);
+    modal.addEventListener("click",(e)=>{ if(e.target===modal) closeModal(); });
+    document.getElementById("mPrev").addEventListener("click", ()=>setModalImg(imgIdx-1));
+    document.getElementById("mNext").addEventListener("click", ()=>setModalImg(imgIdx+1));
+    window.addEventListener("keydown",(e)=>{
+      if(!modal.classList.contains("open")) return;
+      if(e.key==="Escape") closeModal();
+      if(e.key==="ArrowLeft") setModalImg(imgIdx-1);
+      if(e.key==="ArrowRight") setModalImg(imgIdx+1);
+    });
+
+    // ==========================================================
+    // CHECKOUT DRAWER (image preview + dropdown + size auto-fill)
+    // ==========================================================
+    const drawer = document.getElementById("drawer");
+    const cMsg = document.getElementById("cMsg");
+    let selected = null;
+
+    const sName = document.getElementById("sName");
+    const sPrice = document.getElementById("sPrice");
+    const sShip = document.getElementById("sShip");
+    const sTotal = document.getElementById("sTotal");
+
+    const cArea = document.getElementById("cArea");
+    const cQty = document.getElementById("cQty");
+    const cSize = document.getElementById("cSize");
+
+    const ckImg = document.getElementById("ckImg");
+    const ckProduct = document.getElementById("ckProduct");
+    const ckStock = document.getElementById("ckStock");
+
+    const cWhatsApp = document.getElementById("cWhatsApp");
+    const cCall = document.getElementById("cCall");
+
+    function shipCost(area){
+      if(area==="dhaka") return SHIP_DHAKA;
+      if(area==="outside") return SHIP_OUTSIDE;
+      return 0;
+    }
+
+    function fillSizesForProduct(p){
+      const sizes = (p && Array.isArray(p.sizes) && p.sizes.length) ? p.sizes : ["M","L","XL","XXL","3XL","4XL","5XL"];
+      const prev = cSize.value || "";
+      cSize.innerHTML = `<option value="">Select</option>` + sizes.map(s=>`<option>${s}</option>`).join("");
+      // keep previous if still valid
+      if(prev && sizes.includes(prev)) cSize.value = prev;
+    }
+
+    function refreshCheckoutHeader(){
+      if(selected && selected.images && selected.images[0]) ckImg.src = selected.images[0];
+      else ckImg.removeAttribute("src");
+
+      if(selected) ckProduct.value = selected.id;
+      ckStock.textContent = selected ? stockText(selected) : "Stock: —";
+
+      fillSizesForProduct(selected);
+
+      // support links
+      const pname = selected ? selected.name : "a product";
+      cWhatsApp.href = waLink(`Hi! I need help with order: ${pname}`);
+      cCall.href = callLink();
+
+      // update floating whatsapp to match drawer product (desktop)
+      if(waFloat && selected){
+        waFloat.href = waLink(`Hi! I need help with order: ${selected.name}`);
+      }
+    }
+
+    function refreshSummary(){
+      if(!selected){
+        sName.textContent = "No product selected";
+        sPrice.textContent = fmtBDT(0);
+        sShip.textContent = fmtBDT(0);
+        sTotal.textContent = fmtBDT(0);
+        return;
+      }
+      const qty = Number(cQty.value || 1);
+      const ship = shipCost(cArea.value);
+      const price = selected.now * qty;
+      const total = price + ship;
+
+      sName.textContent = selected.name;
+      sPrice.textContent = fmtBDT(price);
+      sShip.textContent = fmtBDT(ship);
+      sTotal.textContent = fmtBDT(total);
+    }
+
+    function openCheckout(productId){
+      selected = products.find(p=>p.id===productId) || null;
+      cMsg.textContent = "";
+      refreshCheckoutHeader();
+      refreshSummary();
+
+      drawer.classList.add("open");
+      document.body.style.overflow="hidden";
+
+      // ✅ Optional: always open drawer at top
+      document.querySelector(".panel").scrollTop = 0;
+
+      setSticky(selected);
+    }
+
+    function closeCheckout(){
+      drawer.classList.remove("open");
+      document.body.style.overflow="";
+      if(waFloat){
+        waFloat.href = waLink("Hi! I need help with GameOn Garb order.");
+      }
+    }
+
+    document.getElementById("openQuickBuy").addEventListener("click", ()=>{
+      if(products.length) openCheckout(products[0].id);
+    });
+
+    document.getElementById("dBg").addEventListener("click", closeCheckout);
+    document.getElementById("dClose").addEventListener("click", closeCheckout);
+
+    cArea.addEventListener("change", refreshSummary);
+    cQty.addEventListener("change", refreshSummary);
+
+    ckProduct.addEventListener("change", ()=>{
+      const newId = ckProduct.value;
+      const p = products.find(x => x.id === newId);
+      if(p){
+        selected = p;
+        refreshCheckoutHeader();
+        refreshSummary();
+        setSticky(selected);
+      }
+    });
+
+    document.getElementById("place").addEventListener("click", async ()=>{
+      cMsg.textContent = "Submitting…";
+      if(!selected){ cMsg.textContent = "⚠️ Select a product"; return; }
+
+      const payload = {
+        productId: selected.id,
+        productName: selected.name,
+        productLink: selected.link,
+        unitPrice: selected.now,
+        qty: Number(document.getElementById("cQty").value || 1),
+        size: document.getElementById("cSize").value || "",
+        area: document.getElementById("cArea").value,
+        name: document.getElementById("cName").value.trim(),
+        phone: document.getElementById("cPhone").value.trim(),
+        address: document.getElementById("cAddr").value.trim()
+      };
+
+      if(!payload.name || !payload.phone || !payload.address || !payload.area){
+        cMsg.textContent = "⚠️ Fill name/phone/address/area";
+        return;
+      }
+
+      try{
+        const res = await fetch("/api/order", {
+          method:"POST",
+          headers:{ "Content-Type":"application/json" },
+          body: JSON.stringify(payload)
+        });
+        const data = await res.json().catch(()=>({}));
+        if(!res.ok) throw new Error(data?.error || "Failed");
+
+        closeCheckout();
+        openOrderPopup("✅ Order Confirmed", `
+          <div style="font-size:14px;">
+            Your order has been placed successfully.<br>
+            <b>Order ID:</b> ${data.orderId}<br><br>
+            We will call you shortly to confirm.
+          </div>
+        `);
+      }catch(e){
+        openOrderPopup("❌ Order Failed", `
+          <div style="font-size:14px;color:var(--muted);">
+            ${(e.message || "Error")}
+          </div>
+        `);
+      }
+    });
+
+    // ==========================================================
+    // Sticky bar (mobile)
+    // ==========================================================
+    const stickyTitle = document.getElementById("stickyTitle");
+    const stickySub = document.getElementById("stickySub");
+    const stickyBuy = document.getElementById("stickyBuy");
+
+    function setSticky(p){
+      if(!p){
+        stickyTitle.textContent = "Quick Order";
+        stickySub.textContent = "COD • Delivery charge shown";
+        stickyBuy.onclick = ()=> { if(products.length) openCheckout(products[0].id); };
+        return;
+      }
+      stickyTitle.textContent = p.name.length > 28 ? (p.name.slice(0,28) + "…") : p.name;
+      stickySub.textContent = `${fmtBDT(p.now)} • ${stockText(p)}`;
+      stickyBuy.onclick = ()=>openCheckout(p.id);
+    }
+
+    // ==========================================================
+    // INIT
+    // ==========================================================
+    (async function init(){
+      products = await buildProducts();
+
+      // Build checkout dropdown
+      ckProduct.innerHTML = products.map(p =>
+        `<option value="${p.id}">${p.name} — ${fmtBDT(p.now)}</option>`
+      ).join("");
+
+      // Hero slides (best picks)
+      const picks = [
+        products.find(p=>p.id==="ts-266"),
+        products.find(p=>p.id==="ts-265"),
+        products.find(p=>p.id==="sw-191"),
+        products.find(p=>p.id==="sw-190"),
+        products.find(p=>p.id==="jk-131"),
+      ].filter(Boolean);
+
+      heroSlides.length = 0;
+      picks.forEach(p=>{ if(p.images && p.images[0]) heroSlides.push(p.images[0]); });
+      if(!heroSlides.length && products.length && products[0].images?.[0]) heroSlides.push(products[0].images[0]);
+
+      // Initialize hero
+      hImgA.src = heroSlides[0] || "";
+      hImgA.classList.add("active");
+      hImgB.src = "";
+      hImgB.classList.remove("active");
+      heroUsingA = true;
+      hIdx = 0;
+
+      // Default support links (if no selected)
+      document.getElementById("dCall").href = callLink();
+      document.getElementById("mCall").href = callLink();
+      document.getElementById("cCall").href = callLink();
+
+      heroStart();
+      render();
+      setSticky(products[0] || null);
+    })();
+
+    // ==========================================================
+    // REVIEWS (Best: auto-slide + fade)
+    // ==========================================================
+    const reviewImages = [
+      "/assets/reviews/8.jpg",
+      "/assets/reviews/9.jpg",
+      "/assets/reviews/10.jpg",
+      "/assets/reviews/11.jpg",
+      "/assets/reviews/12.jpg",
+      "/assets/reviews/13.jpg",
+      "/assets/reviews/14.jpg",
+      "/assets/reviews/15.jpg",
+      "/assets/reviews/16.jpg",
+      "/assets/reviews/1.jpg",
+      "/assets/reviews/2.jpg",
+      "/assets/reviews/3.jpg",
+      "/assets/reviews/4.jpg",
+      "/assets/reviews/5.jpg",
+      "/assets/reviews/6.jpg",
+      "/assets/reviews/7.jpg"
+    ];
+
+    const revTrack = document.getElementById("revTrack");
+    const revDots = document.getElementById("revDots");
+    const revPrev = document.getElementById("revPrev");
+    const revNext = document.getElementById("revNext");
+
+    let revIndex = 0;
+    let revTimer = null;
+
+    function visibleCount(){
+      const w = window.innerWidth;
+      if(w <= 520) return 1;
+      if(w <= 900) return 2;
+      return 3;
+    }
+
+    function maxIndex(){
+      return Math.max(0, reviewImages.length - visibleCount());
+    }
+
+    function buildReviews(){
+      if(!revTrack) return;
+
+      revTrack.innerHTML = reviewImages.map((src,i)=>`
+        <div class="revItem">
+          <img src="${src}" alt="Customer review ${i+1}" loading="lazy"
+            onerror="this.style.opacity=.25; this.title='Review image not found';">
+          <div class="revBadge">✅ Verified</div>
+        </div>
+      `).join("");
+
+      if(revDots){
+        const dotsCount = maxIndex() + 1;
+        revDots.innerHTML = Array.from({length:dotsCount}).map((_,i)=>`
+          <div class="revDot ${i===0?"active":""}" data-dot="${i}"></div>
+        `).join("");
+
+        revDots.querySelectorAll("[data-dot]").forEach(d=>{
+          d.addEventListener("click", ()=>{
+            const i = Number(d.getAttribute("data-dot"));
+            setReview(i, true);
+          });
+        });
+      }
+
+      revIndex = 0;
+      applyReviewTransform();
+    }
+
+    function applyReviewTransform(){
+      if(!revTrack) return;
+
+      const item = revTrack.querySelector(".revItem");
+      if(!item) return;
+
+      const gap = 12;
+      const itemW = item.getBoundingClientRect().width;
+      const x = -1 * revIndex * (itemW + gap);
+
+      revTrack.style.transform = `translateX(${x}px)`;
+
+      if(revDots){
+        revDots.querySelectorAll(".revDot").forEach((dot,di)=>{
+          dot.classList.toggle("active", di === revIndex);
+        });
+      }
+    }
+
+    function setReview(i, userAction){
+      const m = maxIndex();
+      revIndex = Math.min(Math.max(0, i), m);
+      applyReviewTransform();
+      if(userAction) restartReviewAuto();
+    }
+
+    function nextReview(){
+      const m = maxIndex();
+      if(revIndex >= m) revIndex = 0;
+      else revIndex++;
+      applyReviewTransform();
+    }
+
+    function prevReviewFn(){
+      const m = maxIndex();
+      if(revIndex <= 0) revIndex = m;
+      else revIndex--;
+      applyReviewTransform();
+    }
+
+    function startReviewAuto(){
+      stopReviewAuto();
+      revTimer = setInterval(nextReview, 1500);
+    }
+    function stopReviewAuto(){
+      if(revTimer) clearInterval(revTimer);
+      revTimer = null;
+    }
+    function restartReviewAuto(){
+      stopReviewAuto();
+      startReviewAuto();
+    }
+
+    if(revPrev) revPrev.addEventListener("click", ()=>{ prevReviewFn(); restartReviewAuto(); });
+    if(revNext) revNext.addEventListener("click", ()=>{ nextReview(); restartReviewAuto(); });
+
+    (function bindSwipe(){
+      if(!revTrack) return;
+      let x0 = null;
+
+      revTrack.addEventListener("touchstart",(e)=>{
+        x0 = e.touches[0].clientX;
+      }, {passive:true});
+
+      revTrack.addEventListener("touchend",(e)=>{
+        if(x0 === null) return;
+        const x1 = e.changedTouches[0].clientX;
+        const dx = x1 - x0;
+        x0 = null;
+
+        if(Math.abs(dx) < 35) return;
+        if(dx < 0) { nextReview(); restartReviewAuto(); }
+        else { prevReviewFn(); restartReviewAuto(); }
+      }, {passive:true});
+    })();
+
+    window.addEventListener("resize", ()=>{
+      const oldMax = maxIndex();
+      buildReviews();
+      revIndex = Math.min(revIndex, oldMax);
+      applyReviewTransform();
+    });
+
+    document.addEventListener("visibilitychange", ()=>{
+      if(document.hidden) stopReviewAuto();
+      else startReviewAuto();
+    });
+
+<<<<<<< HEAD
+function setReview(i, userAction){
+  const m = maxIndex();
+  revIndex = Math.min(Math.max(0, i), m);
+  applyReviewTransform();
+  if(userAction) restartReviewAuto();
+}
+
+function nextReview(){
+  const m = maxIndex();
+  if(revIndex >= m) revIndex = 0;  // loop
+  else revIndex++;
+  applyReviewTransform();
+}
+
+function prevReviewFn(){
+  const m = maxIndex();
+  if(revIndex <= 0) revIndex = m;  // loop
+  else revIndex--;
+  applyReviewTransform();
+}
+
+function startReviewAuto(){
+  stopReviewAuto();
+  revTimer = setInterval(nextReview, 1500); // 🔥 short time (change)
+}
+function stopReviewAuto(){
+  if(revTimer) clearInterval(revTimer);
+  revTimer = null;
+}
+function restartReviewAuto(){
+  stopReviewAuto();
+  startReviewAuto();
+}
+
+if(revPrev) revPrev.addEventListener("click", ()=>{ prevReviewFn(); restartReviewAuto(); });
+if(revNext) revNext.addEventListener("click", ()=>{ nextReview(); restartReviewAuto(); });
+
+// Swipe (mobile)
+(function bindSwipe(){
+  if(!revTrack) return;
+  let x0 = null;
+
+  revTrack.addEventListener("touchstart",(e)=>{
+    x0 = e.touches[0].clientX;
+  }, {passive:true});
+
+  revTrack.addEventListener("touchend",(e)=>{
+    if(x0 === null) return;
+    const x1 = e.changedTouches[0].clientX;
+    const dx = x1 - x0;
+    x0 = null;
+
+    if(Math.abs(dx) < 35) return;
+    if(dx < 0) { nextReview(); restartReviewAuto(); }
+    else { prevReviewFn(); restartReviewAuto(); }
+  }, {passive:true});
+})();
+
+// rebuild on resize (to recalc 3/2/1 layout)
+window.addEventListener("resize", ()=>{
+  const oldMax = maxIndex();
+  buildReviews();
+  // keep index safe
+  revIndex = Math.min(revIndex, oldMax);
+  applyReviewTransform();
+});
+
+document.addEventListener("visibilitychange", ()=>{
+  if(document.hidden) stopReviewAuto();
+  else startReviewAuto();
+});
+
+// init
+buildReviews();
+startReviewAuto();
+
+=======
+    buildReviews();
+    startReviewAuto();
+>>>>>>> fd6d1df (UI improvements: big Buy Now button, details popup CTA, WhatsApp UX)
+  </script>
+</body>
+</html>

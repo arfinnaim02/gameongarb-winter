@@ -1,0 +1,1148 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>GameOn Garb • Orders Admin</title>
+  <style>
+    :root{
+      --bg:#ffffff; --text:#111827; --muted:#6b7280; --line:#e5e7eb; --soft:#f9fafb; --black:#111;
+      --new:#2563eb; --confirmed:#7c3aed; --shipped:#f59e0b; --delivered:#16a34a; --canceled:#dc2626;
+    }
+    *{box-sizing:border-box}
+    body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial;background:var(--bg);color:var(--text)}
+    .wrap{width:min(1200px,94vw);margin:0 auto;padding:16px 0 30px}
+    h2{margin:6px 0 12px;font-size:20px;letter-spacing:-.01em}
+    input,button,select{font:inherit}
+    a{color:inherit}
+    .row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+    .card{border:1px solid var(--line);background:#fff;border-radius:18px;padding:12px;box-shadow:0 14px 28px rgba(0,0,0,.05)}
+    .field{display:flex;flex-direction:column;gap:6px;min-width:220px}
+    .field label{font-size:12px;font-weight:900;color:#111}
+    .input{padding:10px 12px;border:1px solid var(--line);border-radius:12px;background:#fff;font-weight:800;outline:none}
+    .btn{
+      padding:10px 12px;border:1px solid var(--black);border-radius:12px;
+      font-weight:900;cursor:pointer;background:var(--black);color:#fff;
+      display:inline-flex;align-items:center;gap:8px
+    }
+    .btnSoft{background:var(--soft);color:var(--text);border:1px solid var(--line)}
+    .btnTiny{padding:8px 10px;border-radius:10px;font-size:12px}
+    .btnDanger{background:#dc2626;border-color:#dc2626;color:#fff}
+    .btnDangerSoft{background:rgba(220,38,38,.08);border:1px solid rgba(220,38,38,.25);color:#dc2626}
+    .muted{color:var(--muted);font-weight:800}
+    .error{color:#b91c1c;font-weight:900}
+    .ok{color:#16a34a;font-weight:900}
+
+    table{width:100%;border-collapse:separate;border-spacing:0;margin-top:12px}
+    thead th{
+      text-align:left;font-size:12px;color:#374151;font-weight:950;background:var(--soft);
+      padding:10px;border-bottom:1px solid var(--line);position:sticky;top:0;z-index:2
+    }
+    tbody td{padding:10px;border-bottom:1px solid var(--line);vertical-align:top;font-size:13px}
+    tbody tr:hover{background:#fafafa}
+    .small{font-size:12px}
+    .pill{
+      display:inline-flex;align-items:center;gap:6px;padding:5px 10px;border-radius:999px;
+      border:1px solid var(--line);background:var(--soft);font-weight:950;font-size:12px;white-space:nowrap
+    }
+    .status{
+      padding:8px 10px;border-radius:12px;font-weight:900;outline:none;cursor:pointer;width:160px;
+      background:var(--soft);border:1px solid var(--line)
+    }
+    .badge{border:1px solid transparent}
+    .s-new{background:rgba(37,99,235,.1); color:var(--new); border-color:rgba(37,99,235,.25)}
+    .s-confirmed{background:rgba(124,58,237,.1); color:var(--confirmed); border-color:rgba(124,58,237,.25)}
+    .s-shipped{background:rgba(245,158,11,.12); color:var(--shipped); border-color:rgba(245,158,11,.28)}
+    .s-delivered{background:rgba(22,163,74,.12); color:var(--delivered); border-color:rgba(22,163,74,.25)}
+    .s-canceled{background:rgba(220,38,38,.12); color:var(--canceled); border-color:rgba(220,38,38,.25)}
+    .actions{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+    .mono{font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,monospace}
+    .right{margin-left:auto}
+    .dbg{font-size:12px;color:#374151;font-weight:900}
+    .dbg code{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:12px}
+
+    /* ✅ checkbox + bulk bar */
+    .chk{width:18px;height:18px;cursor:pointer;accent-color:#111}
+    .bulkBar{
+      margin-top:10px;border-top:1px dashed var(--line);padding-top:10px;
+      display:flex;gap:10px;flex-wrap:wrap;align-items:flex-end
+    }
+    .bulkBar .field{min-width:240px}
+    .counter{
+      display:inline-flex;align-items:center;gap:8px;padding:8px 10px;border-radius:12px;
+      border:1px solid var(--line);background:var(--soft);font-weight:950
+    }
+    .tiny{font-size:12px}
+
+    /* ✅ Details Modal */
+    .modal{
+      position:fixed;inset:0;display:none;place-items:center;background:rgba(0,0,0,.55);
+      z-index:999;padding:14px
+    }
+    .modal.open{display:grid}
+    .modalCard{
+      width:min(980px,96vw);
+      background:#fff;border-radius:18px;overflow:hidden;border:1px solid var(--line);
+      box-shadow:0 22px 50px rgba(0,0,0,.25)
+    }
+    .modalHead{
+      display:flex;justify-content:space-between;align-items:center;gap:10px;
+      padding:12px 12px;border-bottom:1px solid var(--line);background:var(--soft)
+    }
+    .modalHead b{font-size:14px}
+    .close{
+      width:40px;height:40px;border-radius:12px;border:1px solid var(--line);
+      background:#fff;cursor:pointer;font-weight:900
+    }
+    .modalBody{padding:12px}
+    .grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+    @media(max-width:860px){.grid2{grid-template-columns:1fr}}
+    .box{
+      border:1px solid var(--line);border-radius:16px;background:#fff;padding:12px;
+      display:flex;flex-direction:column;gap:8px
+    }
+    .box h3{margin:0;font-size:14px}
+    .kv{display:grid;gap:6px;font-weight:900}
+    .kv small{color:var(--muted);font-weight:800}
+    .copyRow{display:flex;gap:8px;flex-wrap:wrap}
+    .sep{height:1px;background:var(--line);margin:6px 0}
+
+    /* ✅ Product preview image */
+    .pimg{
+      width:100%;max-width:180px;aspect-ratio:1/1;object-fit:cover;border-radius:14px;
+      border:1px solid var(--line);background:var(--soft)
+    }
+
+    /* ✅ Print area */
+    #printArea{display:none}
+    @media print{
+      body *{visibility:hidden !important}
+      #printArea, #printArea *{visibility:visible !important}
+      #printArea{display:block;position:absolute;left:0;top:0;width:100%}
+      .pageBreak{page-break-after:always}
+    }
+
+    /* ✅ Improved invoice */
+    .invoice{padding:16px;font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial;color:#111}
+    .invHeader{
+      display:flex;justify-content:space-between;gap:12px;align-items:flex-start;
+      border:1px solid #e5e7eb;border-radius:16px;padding:12px;background:#fff
+    }
+    .logoRow{display:flex;gap:10px;align-items:center}
+    .logoMark{
+      width:42px;height:42px;border-radius:14px;background:#111;color:#fff;
+      display:grid;place-items:center;font-weight:950;letter-spacing:-.02em
+    }
+    .brandText b{display:block;font-size:16px;letter-spacing:-.02em}
+    .brandText small{color:#6b7280;font-weight:800}
+    .invMeta{font-size:12px;font-weight:900}
+    .invGrid{
+      margin-top:10px;
+      display:grid;grid-template-columns:220px 1fr;gap:10px;
+    }
+    .invCard{
+      border:1px solid #e5e7eb;border-radius:16px;padding:12px;background:#fff;
+      font-size:12.5px;font-weight:900
+    }
+    .invCard h4{margin:0 0 8px;font-size:12px;color:#6b7280;letter-spacing:.02em;text-transform:uppercase}
+    .invRow{display:flex;justify-content:space-between;gap:10px;margin-top:6px}
+    .invMuted{color:#6b7280;font-weight:800}
+    .invImg{
+      width:100%;aspect-ratio:1/1;object-fit:cover;border-radius:14px;border:1px solid #e5e7eb;background:#f9fafb
+    }
+    .invTotal{
+      margin-top:10px;border:1px solid #e5e7eb;border-radius:16px;padding:12px;background:#fff;
+      font-size:13px;font-weight:950
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <h2>GameOn Garb • Orders Admin</h2>
+
+    <div class="card">
+      <div class="row">
+        <div class="field" style="min-width:280px">
+          <label>Admin Token (optional if server has no ADMIN_TOKEN)</label>
+          <input id="token" class="input" placeholder="Paste token if required">
+        </div>
+
+        <div class="field" style="min-width:260px">
+          <label>Search</label>
+          <input id="search" class="input" placeholder="Order ID / Phone / Name / Product">
+        </div>
+
+        <div class="actions right">
+          <button class="btn" id="load">↻ Load Orders</button>
+          <button class="btn btnSoft" id="export">⬇ Export JSON</button>
+          <button class="btn btnSoft" id="printSelected">🖨 Print Selected</button>
+        </div>
+      </div>
+
+      <div class="row" style="margin-top:10px">
+        <span id="msg" class="muted"></span>
+        <span id="err" class="error"></span>
+        <span id="ok" class="ok"></span>
+      </div>
+
+      <div class="row" style="margin-top:10px">
+        <span class="dbg" id="dbg"></span>
+      </div>
+
+      <!-- ✅ Bulk Actions -->
+      <div class="bulkBar">
+        <div class="counter">
+          ✅ Selected: <span id="selCount">0</span>
+          <span class="muted tiny">(use checkboxes in table)</span>
+        </div>
+
+        <div class="field">
+          <label>Bulk Status</label>
+          <select id="bulkStatus" class="input">
+            <option value="">Select status…</option>
+            <option value="new">NEW</option>
+            <option value="confirmed">CONFIRMED</option>
+            <option value="shipped">SHIPPED</option>
+            <option value="delivered">DELIVERED</option>
+            <option value="canceled">CANCELED</option>
+          </select>
+        </div>
+
+        <div class="actions">
+          <button class="btn" id="applyBulk">✅ Apply to Selected</button>
+          <button class="btn btnSoft" id="clearSel">✕ Clear Selection</button>
+
+          <!-- ✅ NEW: Bulk Delete + Bulk Hide -->
+          <button class="btn btnDanger" id="deleteSelected">🗑 Delete Selected</button>
+          <button class="btn btnDangerSoft" id="hideSelected">🙈 Hide Selected (this device)</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="card" style="margin-top:12px;padding:0;overflow:hidden">
+      <table id="tbl">
+        <thead>
+          <tr>
+            <th style="width:44px">
+              <input id="selectAll" class="chk" type="checkbox" title="Select all visible">
+            </th>
+            <th style="width:160px">Order</th>
+            <th style="width:240px">Customer</th>
+            <th>Product</th>
+            <th style="width:170px">Amount</th>
+            <th style="width:240px">Status</th>
+            <th style="width:190px">Created</th>
+            <th style="width:140px">Actions</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
+
+  </div>
+
+  <!-- ✅ Details Modal (no popup blocker) -->
+  <div class="modal" id="detailsModal" aria-hidden="true">
+    <div class="modalCard">
+      <div class="modalHead">
+        <div>
+          <b id="mTitle">Order Details</b>
+          <div class="small muted" id="mSub">—</div>
+        </div>
+        <div class="actions">
+          <button class="btn btnSoft btnTiny" id="mPrint">🖨 Print Invoice</button>
+          <button class="btn btnDangerSoft btnTiny" id="mDelete">🗑 Delete</button>
+          <button class="btn btnDangerSoft btnTiny" id="mHide">🙈 Hide</button>
+          <button class="close" id="mClose">✕</button>
+        </div>
+      </div>
+      <div class="modalBody">
+        <div class="grid2">
+          <div class="box">
+            <h3>Customer (Shipping)</h3>
+            <div class="kv">
+              <div><small>Name</small><br><span id="mCustName">—</span></div>
+              <div><small>Phone</small><br><span id="mCustPhone">—</span></div>
+              <div><small>Address</small><br><span id="mCustAddr">—</span></div>
+            </div>
+            <div class="copyRow">
+              <button class="btn btnSoft btnTiny" id="copyPhone">Copy Phone</button>
+              <button class="btn btnSoft btnTiny" id="copyAddr">Copy Address</button>
+              <a class="btn btnSoft btnTiny" id="whatsBtn" target="_blank" rel="noopener">WhatsApp</a>
+            </div>
+          </div>
+
+          <div class="box">
+            <h3>Order Preview</h3>
+            <img id="mImg" class="pimg" alt="Product image preview" />
+            <div class="kv">
+              <div><small>Order ID</small><br><span id="mOrderId" class="mono">—</span></div>
+              <div><small>Product</small><br><span id="mProduct">—</span></div>
+              <div><small>Qty / Size / Area</small><br><span id="mQtySize">—</span></div>
+            </div>
+            <div class="sep"></div>
+            <div class="kv">
+              <div><small>Unit Price</small><br><span id="mUnit">—</span></div>
+              <div><small>Shipping</small><br><span id="mShip">—</span></div>
+              <div><small>Total</small><br><span id="mTotal">—</span></div>
+            </div>
+            <div class="small muted" id="mCreated">—</div>
+          </div>
+        </div>
+
+        <div class="box" style="margin-top:12px">
+          <h3>Quick Actions</h3>
+          <div class="row">
+            <button class="btn btnSoft btnTiny" id="selectThis">☑ Select this order</button>
+            <button class="btn btnSoft btnTiny" id="printThis">🖨 Print this invoice</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ✅ Print Area (for single & multi print) -->
+  <div id="printArea"></div>
+
+  <script>
+    const tbody = document.querySelector("#tbl tbody");
+    const msg = document.getElementById("msg");
+    const err = document.getElementById("err");
+    const ok = document.getElementById("ok");
+    const dbg = document.getElementById("dbg");
+    const tokenInput = document.getElementById("token");
+    const searchInput = document.getElementById("search");
+
+    const selectAll = document.getElementById("selectAll");
+    const selCountEl = document.getElementById("selCount");
+    const bulkStatus = document.getElementById("bulkStatus");
+    const applyBulkBtn = document.getElementById("applyBulk");
+    const clearSelBtn = document.getElementById("clearSel");
+    const printSelectedBtn = document.getElementById("printSelected");
+
+    // ✅ NEW bulk delete/hide
+    const deleteSelectedBtn = document.getElementById("deleteSelected");
+    const hideSelectedBtn = document.getElementById("hideSelected");
+
+    // Modal elements
+    const detailsModal = document.getElementById("detailsModal");
+    const mClose = document.getElementById("mClose");
+    const mPrint = document.getElementById("mPrint");
+    const mDelete = document.getElementById("mDelete");
+    const mHide = document.getElementById("mHide");
+
+    const mTitle = document.getElementById("mTitle");
+    const mSub = document.getElementById("mSub");
+    const mCustName = document.getElementById("mCustName");
+    const mCustPhone = document.getElementById("mCustPhone");
+    const mCustAddr = document.getElementById("mCustAddr");
+    const mOrderId = document.getElementById("mOrderId");
+    const mProduct = document.getElementById("mProduct");
+    const mQtySize = document.getElementById("mQtySize");
+    const mUnit = document.getElementById("mUnit");
+    const mShip = document.getElementById("mShip");
+    const mTotal = document.getElementById("mTotal");
+    const mCreated = document.getElementById("mCreated");
+    const mImg = document.getElementById("mImg");
+
+    const copyPhone = document.getElementById("copyPhone");
+    const copyAddr = document.getElementById("copyAddr");
+    const whatsBtn = document.getElementById("whatsBtn");
+    const selectThis = document.getElementById("selectThis");
+    const printThis = document.getElementById("printThis");
+
+    const printArea = document.getElementById("printArea");
+
+    tokenInput.value = localStorage.getItem("GG_ADMIN_TOKEN") || "";
+
+    let ALL_ORDERS = [];
+    const SELECTED = new Set();
+    let CURRENT_MODAL_ORDER_ID = null;
+
+    // ✅ NEW: local hide (so orders not shown on this device)
+    const HIDDEN_KEY = "GG_HIDDEN_ORDERS";
+    function readHidden(){
+      try{
+        const arr = JSON.parse(localStorage.getItem(HIDDEN_KEY) || "[]");
+        return new Set(Array.isArray(arr) ? arr.map(String) : []);
+      }catch{ return new Set(); }
+    }
+    function writeHidden(set){
+      localStorage.setItem(HIDDEN_KEY, JSON.stringify(Array.from(set)));
+    }
+    const HIDDEN = readHidden();
+
+    // ✅ NEW: manifest cache for product images
+    let MANIFEST = null;
+    async function loadManifestOnce(){
+      if(MANIFEST) return MANIFEST;
+      try{
+        const res = await fetch("/assets/products/manifest.json", { cache:"no-store" });
+        if(!res.ok) throw new Error("manifest not found");
+        MANIFEST = await res.json();
+        return MANIFEST;
+      }catch{
+        MANIFEST = null;
+        return null;
+      }
+    }
+
+    function tokenHeaders(){
+      const token = tokenInput.value.trim();
+      const h = { "Content-Type":"application/json" };
+      if(token) h["x-admin-token"] = token;
+      return h;
+    }
+
+    function statusClass(status){
+      const s = String(status || "new").toLowerCase();
+      if(s === "new") return "s-new";
+      if(s === "confirmed") return "s-confirmed";
+      if(s === "shipped") return "s-shipped";
+      if(s === "delivered") return "s-delivered";
+      if(s === "canceled" || s === "cancelled") return "s-canceled";
+      return "s-new";
+    }
+
+    function safeText(v){ return (v === null || v === undefined) ? "" : String(v); }
+    function fmtBDT(n){ return "৳" + Number(n || 0).toLocaleString("en-US"); }
+
+    function updateSelectedCounter(){
+      selCountEl.textContent = String(SELECTED.size);
+    }
+
+    function getVisibleOrderIds(){
+      const ids = [];
+      tbody.querySelectorAll('tr[data-id]').forEach(tr => {
+        const id = tr.getAttribute("data-id");
+        if(id) ids.push(id);
+      });
+      return ids;
+    }
+
+    function syncSelectAllCheckbox(){
+      const visible = getVisibleOrderIds();
+      if(visible.length === 0){
+        selectAll.checked = false;
+        selectAll.indeterminate = false;
+        return;
+      }
+      const selectedVisible = visible.filter(id => SELECTED.has(id)).length;
+      if(selectedVisible === 0){
+        selectAll.checked = false;
+        selectAll.indeterminate = false;
+      } else if(selectedVisible === visible.length){
+        selectAll.checked = true;
+        selectAll.indeterminate = false;
+      } else {
+        selectAll.checked = false;
+        selectAll.indeterminate = true;
+      }
+    }
+
+    function getOrderById(orderId){
+      return ALL_ORDERS.find(o => String(o.orderId) === String(orderId)) || null;
+    }
+
+    function normalizePhoneToWhatsapp(phone){
+      const digits = String(phone || "").replace(/\D/g, "");
+      if(digits.startsWith("0")) return "88" + digits;
+      return digits;
+    }
+
+    // ✅ NEW: find product image from manifest using productId
+    function pickFirstImageFromManifest(productId){
+      if(!productId) return "";
+      if(!MANIFEST) return "";
+      const id = String(productId);
+
+      // format A: { "ts-261": ["a.webp","b.webp"] }
+      if(Array.isArray(MANIFEST[id]) && MANIFEST[id].length){
+        return "/assets/products/" + id + "/" + MANIFEST[id][0];
+      }
+
+      // format B: { products: { "ts-261": {... images:[..] } } } / any nested
+      const tryPaths = [
+        MANIFEST?.products?.[id]?.images,
+        MANIFEST?.products?.[id],
+        MANIFEST?.[id]?.images
+      ];
+      for(const p of tryPaths){
+        if(Array.isArray(p) && p.length){
+          const first = String(p[0]);
+          if(first.startsWith("/")) return first;
+          if(first.startsWith("http")) return first;
+          return "/assets/products/" + id + "/" + first;
+        }
+      }
+
+      // format C: { products: [{id:"ts-261", images:[...]}] }
+      if(Array.isArray(MANIFEST?.products)){
+        const found = MANIFEST.products.find(x => String(x?.id) === id);
+        const imgs = found?.images || found?.image || [];
+        if(Array.isArray(imgs) && imgs.length){
+          const first = String(imgs[0]);
+          if(first.startsWith("/")) return first;
+          if(first.startsWith("http")) return first;
+          return "/assets/products/" + id + "/" + first;
+        }
+      }
+
+      return "";
+    }
+
+    // ✅ Improved invoice (logo + image)
+    function buildInvoiceHTML(order){
+      const cust = order.customer || {};
+      const qty = Number(order.qty || 1);
+      const unit = Number(order.unitPrice || 0);
+      const shipping = Number(order.shipping || 0);
+      const total = Number(order.total || (qty*unit + shipping));
+
+      const created = order.createdAt ? new Date(order.createdAt) : null;
+      const createdStr = created ? created.toLocaleString() : safeText(order.createdAt);
+
+      const pid = safeText(order.productId);
+      const imgUrl = pickFirstImageFromManifest(pid);
+
+      return `
+        <div class="invoice">
+          <div class="invHeader">
+            <div class="logoRow">
+              <div class="logoMark">GG</div>
+              <div class="brandText">
+                <b>GameOn Garb</b>
+                <small>Invoice • Cash on Delivery (COD)</small>
+              </div>
+            </div>
+            <div class="invMeta">
+              <div>Order: <span class="mono">${safeText(order.orderId)}</span></div>
+              <div>Date: ${createdStr}</div>
+              <div>Status: ${safeText(order.status || "new").toUpperCase()}</div>
+            </div>
+          </div>
+
+          <div class="invGrid">
+            <div class="invCard">
+              <h4>Product Image</h4>
+              ${imgUrl ? `<img class="invImg" src="${imgUrl}" alt="Product">` : `<div class="invMuted">No image found (manifest missing)</div>`}
+              <div class="invMuted" style="margin-top:8px">Product ID: ${pid || "-"}</div>
+            </div>
+
+            <div>
+              <div class="invCard">
+                <h4>Customer (Shipping)</h4>
+                <div class="invRow"><span>Name</span><span>${safeText(cust.name)}</span></div>
+                <div class="invRow"><span>Phone</span><span>${safeText(cust.phone)}</span></div>
+                <div class="invRow"><span>Address</span><span style="max-width:60%;text-align:right">${safeText(cust.address)}</span></div>
+              </div>
+
+              <div class="invCard" style="margin-top:10px">
+                <h4>Order Details</h4>
+                <div class="invRow"><span>Product</span><span style="max-width:60%;text-align:right">${safeText(order.productName)}</span></div>
+                <div class="invRow"><span>Qty</span><span>${qty}</span></div>
+                <div class="invRow"><span>Size</span><span>${safeText(order.size || "-")}</span></div>
+                <div class="invRow"><span>Area</span><span>${safeText(order.area || "-")}</span></div>
+              </div>
+
+              <div class="invTotal">
+                <div class="invRow"><span class="invMuted">Unit</span><span>${fmtBDT(unit)}</span></div>
+                <div class="invRow"><span class="invMuted">Subtotal</span><span>${fmtBDT(unit * qty)}</span></div>
+                <div class="invRow"><span class="invMuted">Shipping</span><span>${fmtBDT(shipping)}</span></div>
+                <div class="invRow" style="font-size:15px"><span>Total (COD)</span><span>${fmtBDT(total)}</span></div>
+                <div class="invMuted" style="margin-top:8px">Note: Please call customer before delivery.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
+    function printOrders(orders){
+      if(!orders || orders.length === 0){
+        alert("No orders to print.");
+        return;
+      }
+      printArea.innerHTML = orders.map((o, i) => {
+        const pageBreak = (i < orders.length - 1) ? `<div class="pageBreak"></div>` : ``;
+        return buildInvoiceHTML(o) + pageBreak;
+      }).join("");
+      window.print();
+    }
+
+    function setModalImage(order){
+      const pid = safeText(order.productId);
+      const imgUrl = pickFirstImageFromManifest(pid);
+      if(imgUrl){
+        mImg.src = imgUrl;
+        mImg.style.display = "";
+      } else {
+        mImg.removeAttribute("src");
+        mImg.style.display = "none";
+      }
+    }
+
+    function openDetails(orderId){
+      const order = getOrderById(orderId);
+      if(!order){
+        alert("Order not found in cache. Click Load Orders again.");
+        return;
+      }
+
+      const cust = order.customer || {};
+      const qty = Number(order.qty || 1);
+      const unit = Number(order.unitPrice || 0);
+      const shipping = Number(order.shipping || 0);
+      const total = Number(order.total || (qty*unit + shipping));
+
+      CURRENT_MODAL_ORDER_ID = String(order.orderId);
+
+      mTitle.textContent = `Order Details`;
+      mSub.textContent = `Order: ${safeText(order.orderId)} • Status: ${safeText(order.status || "new").toUpperCase()}`;
+
+      mCustName.textContent = safeText(cust.name);
+      mCustPhone.textContent = safeText(cust.phone);
+      mCustAddr.textContent = safeText(cust.address);
+
+      mOrderId.textContent = safeText(order.orderId);
+      mProduct.textContent = safeText(order.productName);
+      mQtySize.textContent = `Qty: ${qty} • Size: ${safeText(order.size || "-")} • Area: ${safeText(order.area || "-")}`;
+
+      mUnit.textContent = fmtBDT(unit);
+      mShip.textContent = fmtBDT(shipping);
+      mTotal.textContent = fmtBDT(total);
+
+      const created = order.createdAt ? new Date(order.createdAt) : null;
+      mCreated.textContent = created ? `Created: ${created.toLocaleString()}` : `Created: ${safeText(order.createdAt)}`;
+
+      // WhatsApp
+      const wa = normalizePhoneToWhatsapp(cust.phone);
+      const waText = encodeURIComponent(`Assalamualaikum! Apnar order (${order.orderId}) confirm korte chai. Address: ${cust.address}`);
+      whatsBtn.href = `https://wa.me/${wa}?text=${waText}`;
+
+      setModalImage(order);
+
+      detailsModal.classList.add("open");
+      detailsModal.setAttribute("aria-hidden", "false");
+      document.body.style.overflow = "hidden";
+    }
+
+    function closeDetails(){
+      detailsModal.classList.remove("open");
+      detailsModal.setAttribute("aria-hidden", "true");
+      document.body.style.overflow = "";
+      CURRENT_MODAL_ORDER_ID = null;
+    }
+
+    async function copyToClipboard(text){
+      try{
+        await navigator.clipboard.writeText(String(text || ""));
+        ok.textContent = "✅ Copied!";
+        setTimeout(()=>{ ok.textContent = ""; }, 900);
+      }catch{
+        alert("Copy failed. Your browser may block clipboard. Copy manually.");
+      }
+    }
+
+    // ✅ NEW: delete single
+    async function deleteOrder(orderId){
+      const sure = confirm(`Delete order ${orderId}? এটি permanent delete হবে!`);
+      if(!sure) return;
+
+      err.textContent = "";
+      ok.textContent = "";
+      msg.textContent = `Deleting ${orderId}…`;
+
+      try{
+        const res = await fetch(`/api/orders/${encodeURIComponent(orderId)}`, {
+          method:"DELETE",
+          headers: tokenHeaders()
+        });
+        const data = await res.json().catch(()=>({}));
+
+        if(!res.ok){
+          msg.textContent = "";
+          err.textContent = `Delete failed (${res.status}): ${data?.error || "Failed"}`;
+          return;
+        }
+
+        // remove from local
+        ALL_ORDERS = ALL_ORDERS.filter(o => String(o.orderId) !== String(orderId));
+        SELECTED.delete(String(orderId));
+        HIDDEN.delete(String(orderId));
+        writeHidden(HIDDEN);
+
+        msg.textContent = "";
+        ok.textContent = `✅ Deleted: ${orderId}`;
+        applySearch();
+        await loadDebug();
+
+        if(CURRENT_MODAL_ORDER_ID === String(orderId)) closeDetails();
+      }catch(e){
+        msg.textContent = "";
+        err.textContent = "Delete failed: " + (e.message || e);
+      }
+    }
+
+    // ✅ NEW: bulk delete
+    async function deleteSelected(){
+      if(SELECTED.size === 0){
+        alert("Select orders first.");
+        return;
+      }
+      const ids = Array.from(SELECTED);
+      const sure = confirm(`Delete ${ids.length} selected orders? এটি permanent delete হবে!`);
+      if(!sure) return;
+
+      err.textContent = "";
+      ok.textContent = "";
+      msg.textContent = `Deleting ${ids.length} orders…`;
+
+      try{
+        const res = await fetch(`/api/orders/bulk-delete`, {
+          method:"POST",
+          headers: tokenHeaders(),
+          body: JSON.stringify({ orderIds: ids })
+        });
+        const data = await res.json().catch(()=>({}));
+
+        if(!res.ok){
+          msg.textContent = "";
+          err.textContent = `Bulk delete failed (${res.status}): ${data?.error || "Failed"}`;
+          return;
+        }
+
+        const set = new Set(ids.map(String));
+        ALL_ORDERS = ALL_ORDERS.filter(o => !set.has(String(o.orderId)));
+        ids.forEach(id => {
+          SELECTED.delete(String(id));
+          HIDDEN.delete(String(id));
+        });
+        writeHidden(HIDDEN);
+
+        msg.textContent = "";
+        ok.textContent = `✅ Deleted ${data?.deleted ?? ids.length} orders`;
+        applySearch();
+        await loadDebug();
+      }catch(e){
+        msg.textContent = "";
+        err.textContent = "Bulk delete failed: " + (e.message || e);
+      }
+    }
+
+    // ✅ NEW: hide selected locally
+    function hideSelected(){
+      if(SELECTED.size === 0){
+        alert("Select orders first.");
+        return;
+      }
+      const ids = Array.from(SELECTED);
+      ids.forEach(id => HIDDEN.add(String(id)));
+      writeHidden(HIDDEN);
+      // also clear selection so it doesn't look selected but gone
+      ids.forEach(id => SELECTED.delete(String(id)));
+      ok.textContent = `✅ Hidden ${ids.length} orders (this device)`;
+      setTimeout(()=>{ ok.textContent = ""; }, 1200);
+      applySearch();
+      syncSelectAllCheckbox();
+      updateSelectedCounter();
+    }
+
+    // ✅ NEW: hide one order locally
+    function hideOne(orderId){
+      HIDDEN.add(String(orderId));
+      writeHidden(HIDDEN);
+      SELECTED.delete(String(orderId));
+      ok.textContent = `✅ Hidden: ${orderId} (this device)`;
+      setTimeout(()=>{ ok.textContent = ""; }, 1200);
+      applySearch();
+      if(CURRENT_MODAL_ORDER_ID === String(orderId)) closeDetails();
+    }
+
+    function render(list){
+      const orders = (list || []).filter(o => !HIDDEN.has(String(o.orderId)));
+
+      if(orders.length === 0){
+        tbody.innerHTML = `<tr><td colspan="8" class="muted" style="padding:16px">No orders found.</td></tr>`;
+        syncSelectAllCheckbox();
+        updateSelectedCounter();
+        return;
+      }
+
+      tbody.innerHTML = orders.map(o => {
+        const cust = o.customer || {};
+        const s = String(o.status || "new").toLowerCase();
+        const badgeCls = statusClass(s);
+
+        const qty = Number(o.qty || 1);
+        const unit = Number(o.unitPrice || 0);
+        const shipping = Number(o.shipping || 0);
+        const total = Number(o.total || (qty*unit + shipping));
+
+        const id = safeText(o.orderId);
+        const checked = SELECTED.has(id) ? "checked" : "";
+
+        return `
+          <tr data-id="${id}">
+            <td>
+              <input class="chk" type="checkbox" data-chk="${id}" ${checked}>
+            </td>
+
+            <td>
+              <div><b class="mono">${id}</b></div>
+              <div class="small muted">COD</div>
+            </td>
+
+            <td>
+              <div><b>${safeText(cust.name)}</b></div>
+              <div class="small">${safeText(cust.phone)}</div>
+              <div class="small muted">${safeText(cust.address)}</div>
+            </td>
+
+            <td>
+              <div><b>${safeText(o.productName)}</b></div>
+              <div class="small muted">Qty: ${qty} • Size: ${safeText(o.size || "-")} • Area: ${safeText(o.area)}</div>
+              ${o.productLink ? `<div class="small"><a class="muted" href="${o.productLink}" target="_blank" rel="noopener">Product Link</a></div>` : ""}
+            </td>
+
+            <td>
+              <div><b>${fmtBDT(total)}</b></div>
+              <div class="small muted">Unit: ${fmtBDT(unit)} • Ship: ${fmtBDT(shipping)}</div>
+            </td>
+
+            <td>
+              <div class="row" style="gap:8px">
+                <span class="pill badge ${badgeCls}" id="badge-${id}">${s.toUpperCase()}</span>
+              </div>
+              <div class="row" style="gap:8px;margin-top:8px">
+                <select class="status" data-status="${id}">
+                  <option value="new" ${s==="new"?"selected":""}>NEW</option>
+                  <option value="confirmed" ${s==="confirmed"?"selected":""}>CONFIRMED</option>
+                  <option value="shipped" ${s==="shipped"?"selected":""}>SHIPPED</option>
+                  <option value="delivered" ${s==="delivered"?"selected":""}>DELIVERED</option>
+                  <option value="canceled" ${s==="canceled"?"selected":""}>CANCELED</option>
+                </select>
+                <button class="btn btnSoft btnTiny" data-save="${id}">Save</button>
+              </div>
+            </td>
+
+            <td>
+              <div>${o.createdAt ? new Date(o.createdAt).toLocaleString() : ""}</div>
+              <div class="small muted">${safeText(o.createdAt)}</div>
+            </td>
+
+            <td>
+              <button class="btn btnSoft btnTiny" data-details="${id}">View</button>
+              <div style="height:6px"></div>
+              <button class="btn btnSoft btnTiny" data-print="${id}">Print</button>
+              <div style="height:6px"></div>
+              <button class="btn btnDangerSoft btnTiny" data-hide="${id}">Hide</button>
+              <div style="height:6px"></div>
+              <button class="btn btnDangerSoft btnTiny" data-del="${id}">Delete</button>
+            </td>
+          </tr>
+        `;
+      }).join("");
+
+      // Save buttons
+      tbody.querySelectorAll("[data-save]").forEach(btn => {
+        btn.addEventListener("click", async () => {
+          const orderId = btn.getAttribute("data-save");
+          const sel = tbody.querySelector(`select[data-status="${orderId}"]`);
+          const newStatus = sel ? sel.value : "new";
+          await updateStatus(orderId, newStatus);
+        });
+      });
+
+      // Badge update on dropdown change
+      tbody.querySelectorAll("select[data-status]").forEach(sel => {
+        sel.addEventListener("change", () => {
+          const orderId = sel.getAttribute("data-status");
+          const b = document.getElementById(`badge-${orderId}`);
+          if(!b) return;
+          const s = sel.value;
+          b.textContent = s.toUpperCase();
+          b.className = `pill badge ${statusClass(s)}`;
+        });
+      });
+
+      // Checkbox selection
+      tbody.querySelectorAll("[data-chk]").forEach(chk => {
+        chk.addEventListener("change", () => {
+          const id = chk.getAttribute("data-chk");
+          if(!id) return;
+          if(chk.checked) SELECTED.add(id);
+          else SELECTED.delete(id);
+          updateSelectedCounter();
+          syncSelectAllCheckbox();
+        });
+      });
+
+      // Details modal
+      tbody.querySelectorAll("[data-details]").forEach(btn => {
+        btn.addEventListener("click", () => {
+          const id = btn.getAttribute("data-details");
+          openDetails(id);
+        });
+      });
+
+      // Single print
+      tbody.querySelectorAll("[data-print]").forEach(btn => {
+        btn.addEventListener("click", () => {
+          const id = btn.getAttribute("data-print");
+          const order = getOrderById(id);
+          if(!order) return alert("Order not found. Load orders again.");
+          printOrders([order]);
+        });
+      });
+
+      // Single hide
+      tbody.querySelectorAll("[data-hide]").forEach(btn => {
+        btn.addEventListener("click", () => {
+          const id = btn.getAttribute("data-hide");
+          hideOne(id);
+        });
+      });
+
+      // Single delete
+      tbody.querySelectorAll("[data-del]").forEach(btn => {
+        btn.addEventListener("click", () => {
+          const id = btn.getAttribute("data-del");
+          deleteOrder(id);
+        });
+      });
+
+      syncSelectAllCheckbox();
+      updateSelectedCounter();
+    }
+
+    function applySearch(){
+      const q = searchInput.value.trim().toLowerCase();
+      if(!q){
+        render(ALL_ORDERS);
+        return;
+      }
+      const filtered = ALL_ORDERS.filter(o => {
+        const cust = o.customer || {};
+        return [o.orderId, cust.phone, cust.name, o.productName]
+          .some(x => String(x || "").toLowerCase().includes(q));
+      });
+      render(filtered);
+    }
+
+    async function loadDebug(){
+      try{
+        const res = await fetch("/api/debug", { headers: tokenHeaders() });
+        const d = await res.json();
+        if(d && d.ok){
+          dbg.innerHTML =
+            `Debug: orders=<b>${d.ordersCount}</b> • size=<b>${d.fileSizeBytes}</b> bytes • ` +
+            `file=<code>${d.ordersFile}</code> • instance=<code>${d.serverInstance}</code>`;
+        } else {
+          dbg.textContent = "";
+        }
+      }catch{
+        dbg.textContent = "";
+      }
+    }
+
+    async function loadOrders(){
+      err.textContent = "";
+      ok.textContent = "";
+      msg.textContent = "Loading…";
+
+      const token = tokenInput.value.trim();
+      localStorage.setItem("GG_ADMIN_TOKEN", token);
+
+      // ✅ Load manifest first (for image preview + print)
+      await loadManifestOnce();
+
+      await loadDebug();
+
+      try{
+        const res = await fetch("/api/orders", { headers: tokenHeaders() });
+        const data = await res.json();
+
+        if(!res.ok){
+          msg.textContent = "";
+          err.textContent = `Error ${res.status}: ${data?.error || "Failed"}`;
+          return;
+        }
+
+        ALL_ORDERS = Array.isArray(data.orders) ? data.orders : [];
+        msg.textContent = `Loaded ${ALL_ORDERS.length} orders`;
+        applySearch();
+      }catch(e){
+        msg.textContent = "";
+        err.textContent = "Fetch failed: " + (e.message || e);
+      }
+    }
+
+    async function updateStatus(orderId, status){
+      err.textContent = "";
+      ok.textContent = "";
+      msg.textContent = `Updating ${orderId}…`;
+
+      try{
+        const res = await fetch(`/api/orders/${encodeURIComponent(orderId)}`, {
+          method:"PATCH",
+          headers: tokenHeaders(),
+          body: JSON.stringify({ status })
+        });
+
+        const data = await res.json();
+
+        if(!res.ok){
+          msg.textContent = "";
+          err.textContent = `Update failed (${res.status}): ${data?.error || "Failed"}`;
+          return;
+        }
+
+        ok.textContent = `✅ Status updated: ${orderId} → ${status.toUpperCase()}`;
+        msg.textContent = "";
+
+        const idx = ALL_ORDERS.findIndex(o => o.orderId === orderId);
+        if(idx !== -1) ALL_ORDERS[idx].status = status;
+
+        await loadDebug();
+      }catch(e){
+        msg.textContent = "";
+        err.textContent = "Update failed: " + (e.message || e);
+      }
+    }
+
+    // Bulk apply status
+    async function applyBulkStatus(){
+      err.textContent = "";
+      ok.textContent = "";
+      msg.textContent = "";
+
+      const status = bulkStatus.value;
+      if(!status){ err.textContent = "Select a bulk status first."; return; }
+      if(SELECTED.size === 0){ err.textContent = "Select at least 1 order."; return; }
+
+      const ids = Array.from(SELECTED);
+      msg.textContent = `Updating ${ids.length} orders…`;
+
+      let success = 0;
+      let failed = 0;
+
+      for(const id of ids){
+        try{
+          const res = await fetch(`/api/orders/${encodeURIComponent(id)}`, {
+            method:"PATCH",
+            headers: tokenHeaders(),
+            body: JSON.stringify({ status })
+          });
+          if(!res.ok){ failed++; continue; }
+          success++;
+          const idx = ALL_ORDERS.findIndex(o => o.orderId === id);
+          if(idx !== -1) ALL_ORDERS[idx].status = status;
+        }catch{
+          failed++;
+        }
+      }
+
+      msg.textContent = "";
+      ok.textContent = `✅ Bulk updated: ${success} success`;
+      if(failed) err.textContent = `⚠️ Failed: ${failed} (check token / server)`;
+
+      applySearch();
+      await loadDebug();
+    }
+
+    // Select all visible
+    selectAll.addEventListener("change", () => {
+      const visible = getVisibleOrderIds();
+      if(selectAll.checked) visible.forEach(id => SELECTED.add(id));
+      else visible.forEach(id => SELECTED.delete(id));
+      applySearch();
+    });
+
+    clearSelBtn.addEventListener("click", () => {
+      SELECTED.clear();
+      applySearch();
+    });
+
+    applyBulkBtn.addEventListener("click", applyBulkStatus);
+
+    // ✅ NEW bulk delete/hide handlers
+    deleteSelectedBtn.addEventListener("click", deleteSelected);
+    hideSelectedBtn.addEventListener("click", hideSelected);
+
+    // Print selected
+    printSelectedBtn.addEventListener("click", () => {
+      const orders = ALL_ORDERS.filter(o => SELECTED.has(String(o.orderId)) && !HIDDEN.has(String(o.orderId)));
+      if(orders.length === 0){
+        alert("Select orders first.");
+        return;
+      }
+      printOrders(orders);
+    });
+
+    // Export JSON
+    document.getElementById("export").addEventListener("click", () => {
+      const blob = new Blob([JSON.stringify({ orders: ALL_ORDERS }, null, 2)], { type:"application/json" });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = "gameongarb-orders.json";
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      URL.revokeObjectURL(url);
+    });
+
+    // Modal actions
+    mClose.addEventListener("click", closeDetails);
+    detailsModal.addEventListener("click", (e) => { if(e.target === detailsModal) closeDetails(); });
+    window.addEventListener("keydown", (e) => { if(e.key === "Escape" && detailsModal.classList.contains("open")) closeDetails(); });
+
+    copyPhone.addEventListener("click", () => {
+      const order = getOrderById(CURRENT_MODAL_ORDER_ID);
+      const phone = order?.customer?.phone || "";
+      copyToClipboard(phone);
+    });
+    copyAddr.addEventListener("click", () => {
+      const order = getOrderById(CURRENT_MODAL_ORDER_ID);
+      const addr = order?.customer?.address || "";
+      copyToClipboard(addr);
+    });
+
+    mPrint.addEventListener("click", () => {
+      const order = getOrderById(CURRENT_MODAL_ORDER_ID);
+      if(!order) return alert("Order not found.");
+      printOrders([order]);
+    });
+    printThis.addEventListener("click", () => {
+      const order = getOrderById(CURRENT_MODAL_ORDER_ID);
+      if(!order) return alert("Order not found.");
+      printOrders([order]);
+    });
+
+    selectThis.addEventListener("click", () => {
+      if(!CURRENT_MODAL_ORDER_ID) return;
+      SELECTED.add(CURRENT_MODAL_ORDER_ID);
+      applySearch();
+      ok.textContent = "✅ Selected this order";
+      setTimeout(()=>{ ok.textContent = ""; }, 900);
+    });
+
+    // ✅ NEW modal delete/hide
+    mDelete.addEventListener("click", () => {
+      if(!CURRENT_MODAL_ORDER_ID) return;
+      deleteOrder(CURRENT_MODAL_ORDER_ID);
+    });
+    mHide.addEventListener("click", () => {
+      if(!CURRENT_MODAL_ORDER_ID) return;
+      hideOne(CURRENT_MODAL_ORDER_ID);
+    });
+
+    document.getElementById("load").addEventListener("click", loadOrders);
+    searchInput.addEventListener("input", applySearch);
+
+    // Auto load
+    loadOrders();
+  </script>
+</body>
+</html>
